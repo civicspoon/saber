@@ -2,32 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: 'Sarabun';
+  src: url('../public/font/THSarabun.ttf') format('truetype');
+  font-weight: normal;
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.tableboder,
+.th,
+.td {
+  border-collapse: collapse;
+  border: 1px solid black;
+  @apply p-1
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+container {
+  @apply flex-1
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.card {
+  @apply p-4 border-2 shadow-md rounded-lg m-3
+}
+
+input, textarea, select {
+  @apply w-10/12 p-2 m-2 shadow-md bg-gray-50 border-2 border-l-8 border-l-gray-600 rounded-md
+}
+
+input[type=file] {
+  @apply w-10/12
+}
+
+
+button {
+  @apply p-3 mt-4 m-1 rounded-md shadow-slate-600 shadow-sm text-center
+}
+
+button[type=submit] {
+  @apply bg-green-600 text-white
+}
+
+.card-header {
+  @apply p-3 rounded-lg shadow-xl text-2xl bg-gray-600 text-white -m-3 mb-3
+}
+
+.card-primary {
+  @apply p-3 rounded-lg shadow-xl bg-gray-200 m-3
 }

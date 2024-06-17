@@ -1,0 +1,23 @@
+@media print {
+    @page {
+        size: A4 landscape;
+    }
+
+    @font-face {
+        font-family: 'Sarabun';
+        src: url('/assets/font/THSarabun.ttf') format('truetype');
+        font-weight: normal;
+
+    }
+    @media screen {
+            size: A4 landscape;
+
+    }
+
+}
+
+.tableborder{
+    border-collapse: collapse;
+    border: 0.5px solid black;
+    @apply px-1
+}
