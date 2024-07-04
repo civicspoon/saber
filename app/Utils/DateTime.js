@@ -11,3 +11,20 @@ export function DateDiff(startDateTime, endDateTime) {
 
     return { hours, minutes };
 }
+
+export function  formatDate(dateString) {
+    const date = new Date(dateString);
+    
+    // Array of month names
+    const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    
+    // Get day, month, and year
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    
+    // Format the date as "30 JUNE 2024"
+    const formattedDate = `${day} ${month} ${year}`;
+    
+    return formattedDate;
+}

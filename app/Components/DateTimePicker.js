@@ -45,6 +45,10 @@ function DateTimePicker({ Label, initialDateTime, onDateTimeChange }) {
         }
     };
 
+    const handleCancel = () => {
+        setIsShow(false);
+    };
+
     useEffect(() => {
         setSelectedDate(initialDateTime.date || '');
         setSelectedMonth(initialDateTime.month || '');
@@ -106,7 +110,6 @@ function DateTimePicker({ Label, initialDateTime, onDateTimeChange }) {
                             </select>
                         </label>
                         <label>
-
                             <select value={selectedMinute} onChange={(e) => setSelectedMinute(e.target.value)}>
                                 <option value="">เลือกนาที</option>
                                 {minutes.map((minute) => (
@@ -115,7 +118,10 @@ function DateTimePicker({ Label, initialDateTime, onDateTimeChange }) {
                             </select>
                             นาที:
                         </label>
-                        <div><button className="bg-green-600" onClick={handleSetDateTime}>ตั้งค่า</button></div>
+                        <div className="flex justify-between mt-2">
+                            <button className="bg-green-600 px-4 py-2 rounded" onClick={handleSetDateTime}>ตั้งค่า</button>
+                            <button className="bg-red-600 px-4 py-2 rounded" onClick={handleCancel}>ยกเลิก</button>
+                        </div>
                     </div>
                 </div>
             )}

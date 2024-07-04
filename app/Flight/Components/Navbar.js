@@ -6,9 +6,9 @@ import Image from 'next/image'
 const Navbar = () => {
 
   const menuItems = [
-    { name: 'หน้าแรก', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Airline` },
-    { name: 'รายงาน', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Airline/report` },    
-    { name: 'ตั้งค่า', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Airline/contact` }
+    { name: 'หน้าแรก', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight` },
+    { name: 'รายงาน', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/report` },    
+    { name: 'ตั้งค่า', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/contact` }
   ];
   
 
