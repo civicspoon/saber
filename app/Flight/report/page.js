@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import { FaPrint, FaSearch } from "react-icons/fa";
+import { FaEdit, FaPrint, FaSearch, FaTrash } from "react-icons/fa";
 import { postData } from "@/app/Utils/RequestHandle";
 import FlightSelect from "../Components/FlightSelect";
 import AirlineSelect from "../Components/AirlineSelect";
@@ -98,11 +98,12 @@ function Page() {
                         <tr>
                             <th className="px-4">#</th>
                             <th className="px-4">Date</th>
+                             <th className="px-4">FlightNo</th>
+                            <th className="px-4">Route</th>
                             <th className="px-4">TimeIn</th>
                             <th className="px-4">TimeOut</th>
                             <th className="px-4">Hours</th>
-                            <th className="px-4">FlightNo</th>
-                            <th className="px-4">Route</th>
+                           
                             <th className="px-4">PaxName</th>
                             <th className="px-4">Remark</th>
                             <th className="px-4">Action</th>
@@ -118,15 +119,16 @@ function Page() {
                             userdata.map((item, index) => (
                                 <tr key={index}>
                                     <td  className=" text-center border-gray-400 border border-collapse">{index + 1}</td>
-                                    <td  className="text-center  border-gray-400 border border-collapse">{formatDate(item.DateIN)}</td>
+                                    <td  className="text-center  border-gray-400 border border-collapse">{formatDate(item.DateIN)}</td>  
+                                     <td className="px-2  border-gray-400 border border-collapse">{item.IATACode}{item.FlightNo}</td>
+                                    <td className="px-2  border-gray-400 border border-collapse">{item.Route}</td>
                                     <td className=" text-center border-gray-400 border border-collapse">{item.Time_IN.slice(0,-3)}</td>
                                     <td className=" text-center border-gray-400 border border-collapse">{item.Time_OUT.slice(0,-3)}</td>
                                     <td className="text-center border-gray-400 border border-collapse">{item.Diff.slice(0,-3)}</td>
-                                    <td className="px-2  border-gray-400 border border-collapse">{item.IATACode}{item.FlightNo}</td>
-                                    <td className="px-2  border-gray-400 border border-collapse">{item.Route}</td>
+                                 
                                     <td className="px-2  border-gray-400 border border-collapse">{item.Passenger}</td>
                                     <td className="px-2  border-gray-400 border border-collapse">{item.Remark}</td>
-                                    <td className="px-2  border-gray-400 border border-collapse">{item.Passenger}</td>
+                                    <td className="px-2  border-gray-400 border border-collapse flex justify-between"><button><FaEdit  color="yellow" /></button> <button><FaTrash color="red" /></button></td>
                                     {/* เพิ่มข้อมูลคอลัมน์ตามที่ต้องการแสดง */}
                                 </tr>
                             ))

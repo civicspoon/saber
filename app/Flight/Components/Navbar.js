@@ -8,7 +8,7 @@ const Navbar = () => {
   const menuItems = [
     { name: 'หน้าแรก', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight` },
     { name: 'รายงาน', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/report` },    
-    { name: 'ตั้งค่า', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/contact` }
+    { name: 'เที่ยวบิน/สายการบิน', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/airlineandflight` }
   ];
   
 
