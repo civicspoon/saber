@@ -36,3 +36,6 @@ input,select,textarea{
 button{
   @apply flex items-center p-2 m-2 text-center rounded-lg shadow-black shadow-sm text-xl justify-center
 }
+.cardheader {
+  @apply flex  w-full -mt-4  mb-6 p-2 text-lg text-white border-b  rounded-t-lg
+}
