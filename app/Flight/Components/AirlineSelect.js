@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import { getData } from "@/app/Utils/RequestHandle";
@@ -10,9 +10,11 @@ function AirlineSelect({ onAirlineSelect }) {
     const [sessiondata, setSessiondata] = useState("");
 
     useEffect(() => {
-        setSessiondata(JSON.parse(sessionStorage.getItem('usdt')));
-
-    }, [])
+        const session = sessionStorage.getItem('usdt');
+        if (session) {
+            setSessiondata(JSON.parse(session));
+        }
+    }, []);
 
     // Use Effect to set department id from session data
     useEffect(() => {
@@ -31,12 +33,17 @@ function AirlineSelect({ onAirlineSelect }) {
     // Function to get airline list
     const getairlinelist = async () => {
         const response = await getData(`${process.env.NEXT_PUBLIC_API_URL}/airline/airlinebydev/${departmentid}`);
-        setAirlinelist(response);
+        if (response) {
+            setAirlinelist(response);
+        }
     };
 
     // Handle change event for select element
     const handleChange = (event) => {
         const selectedValue = event.target.value;
+        console.log('====================================');
+        console.log(selectedValue);
+        console.log('====================================');
         setSelectedAirline(selectedValue);
         if (onAirlineSelect) {
             onAirlineSelect(selectedValue);
@@ -47,10 +54,11 @@ function AirlineSelect({ onAirlineSelect }) {
         <div>
             <div>กรุณาเลือกสายการบิน</div>
             <select value={selectedAirline} onChange={handleChange} required>
-                <option>เลือกสายการบิน</option>
-                <option value="" disabled>กรุณาเลือกสายการบิน</option>
-                {airlinelist && airlinelist.map((airline, index) => (
-                    <option key={index} value={airline.id}>{airline.Name}</option>
+                <option value="">เลือกสายการบิน</option>
+                {airlinelist && airlinelist.map((airline) => (
+                    <option key={airline.id} value={airline.id}>
+                        {airline.Name}
+                    </option>
                 ))}
             </select>
         </div>
