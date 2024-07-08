@@ -7,6 +7,7 @@ import { FaPlus, FaSave } from 'react-icons/fa'; // นำเข้าไอค�
 import { LuPlane, LuPlaneLanding } from "react-icons/lu";
 import NewFlight from "./Components/NewFlight";
 import NewAirline from "./Components/NewAirline";
+import Guide from "./Components/Guide";
 
 function Page() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,13 +31,8 @@ function Page() {
 
   return (
     <>
-      <div>
-        <div>เพิ่มข้อมูล INAD AOTGA</div>
-        <div className="flex bg-slate-700 p-4 rounded-lg shadow-black shadow-sm">
-          <InsertInad />
-        </div>
-          <div className="mt-5 ">เพิ่มรายการ</div>
-          <div className="flex justify-between my-2 p-2 rounded-lg bg-slate-700">
+        <div className="font-semibold bg-blue-700 text-2xl p-4 rounded-t-lg">เพิ่มรายการ สายการบิน-เที่ยวบิน</div>
+        <div className="flex justify-between  p-2 rounded-b-lg mb-4 bg-slate-700">
 
           <button
             className="bg-blue-500 text-white px-4 pl-6 py-2 rounded flex items-center"
@@ -62,6 +58,15 @@ function Page() {
             /> เพิ่มเที่ยวบิน
           </button>
         </div>
+      <div>
+        <div className="font-semibold bg-blue-700 text-2xl p-4 rounded-t-lg">เพิ่มข้อมูล INAD AOTGA</div>
+        <div className="flex bg-slate-700 p-4 rounded-lg shadow-black shadow-sm">
+          <InsertInad />
+        </div>
+        <div>
+          <Guide />
+        </div>
+       
       </div>
 
       {/* MODAL */}
