@@ -62,6 +62,8 @@ function Page({ params }) {
                     setInitialData(response.inad);
                     // Example: setMidname(response.inad.MidName)
                     setPassenger(response.inad.Passenger)
+
+
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
@@ -85,6 +87,11 @@ function Page({ params }) {
     const handleFlightSelect = (selectedValue) => {
         setSelectedFlight(selectedValue);
     };
+
+
+const getflight =async ()=>{
+    const response = await getData(`${process.env.NEXT_PUBLIC_API_URL}/flight/${selectedFlight}`);
+}
 
     return (
         <>
@@ -122,33 +129,33 @@ function Page({ params }) {
                 </div>
                 <div className="flex flex-wrap items-center justify-center text-center md:text-left" hidden={checkboxdisable}>
                     <div className="flex sm:flex-row items-center sm:ml-2 mt-2">
-                        <div className="mr-2" hidden={disableRemark}>เทียวบินออก</div>
+                        <div className="mr-2" >เทียวบินออก</div>
                         <input
                             type="text"
                             placeholder="ตัวอย่าง ID1234"
                             className="uppercase sm:w-32"
-                            hidden={disableRemark}
+                            
                             value={outbound}
                             onChange={(e) => setOutbound(e.target.value)}
                         />
                     </div>
                     <div>
-                        <div className="mr-2" hidden={disableRemark}>เส้นทางบิน</div>
+                        <div className="mr-2" >เส้นทางบิน</div>
                         <input
                             type="text"
                             placeholder="ตัวอย่าง BKK/HKT"
                             className="uppercase sm:w-32"
-                            hidden={disableRemark}
+                            
                             value={outboundflight}
                             onChange={(e) => setOutboundflight(e.target.value)}
                         />
                     </div>
                     <div className="flex sm:flex-row items-center sm:ml-2 mt-2">
-                        <div className="mr-2" hidden={disableRemark}>วันที่</div>
+                        <div className="mr-2" >วันที่</div>
                         <input
                             type="date"
                             className="uppercase sm:w-32"
-                            hidden={disableRemark}
+                            
                             value={outbounddate}
                             onChange={(e) => setOutbounddate(e.target.value)}
                         />
