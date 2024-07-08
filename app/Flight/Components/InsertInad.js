@@ -129,7 +129,7 @@ function InsertInad() {
             timeOut: fullenddate,
             flight: selectedFlight,
             remark: remarkval.toUpperCase(),
-            passengerName: surname.toLocaleUpperCase() + '/' + tmpmidname + firstname.toUpperCase() + ' ' + title.toUpperCase(),
+            passengerName: surname.toLocaleUpperCase() + '/' + tmpmidname + firstname.toUpperCase() + ':' + title.toUpperCase(),
             UserID: userData.EmID,
         };
 
