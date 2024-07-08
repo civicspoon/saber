@@ -89,7 +89,7 @@ function NewAirline() {
                 />
             </div>
             <div>
-                รหัสสายการบิน(AIATA CODE)<br />
+                รหัสสายการบิน(IATA CODE)<br />
                 <input
                     type="text"
                     placeholder="CODE"

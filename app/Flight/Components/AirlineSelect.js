@@ -50,7 +50,7 @@ function AirlineSelect({ onAirlineSelect }) {
                 <option>เลือกสายการบิน</option>
                 <option value="" disabled>กรุณาเลือกสายการบิน</option>
                 {airlinelist && airlinelist.map((airline, index) => (
-                    <option key={index} value={airline.id}>{airline.Name}</option>
+                    <option key={airline.id} value={airline.id}>{airline.Name}</option>
                 ))}
             </select>
         </div>
