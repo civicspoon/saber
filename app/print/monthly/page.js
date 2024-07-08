@@ -4,7 +4,7 @@ import Image from "next/image";
 import aot from "@/public/logo-aot.png";
 import { DDMMYYY, monthtext } from '@/app/Utils/DateTimeConversion';
 import { thbtxt } from '@/app/Utils/DateTimeConversion';
-import { formatNumber, GetData } from '@/app/utils/Datahandling';
+import { formatNumber, GetData } from '@/app/Utils/Datahandling';
 import { useSearchParams } from 'next/navigation'
 
 function Page() {
