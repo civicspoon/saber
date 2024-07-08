@@ -33,19 +33,19 @@ function Page({ params }) {
     ];
 
     const [startDateTime, setStartDateTime] = useState({
-        date: '1',
-        month: 'กุมภาพันธ์',
-        year: '2024',
-        hour: '12',
-        minute: '11'
+        date: '',
+        month: '',
+        year: '',
+        hour: '',
+        minute: ''
     });
 
     const [endDateTime, setEndDateTime] = useState({
-        date: '2',
-        month: 'กุมภาพันธ์',
-        year: '2024',
-        hour: '12',
-        minute: '11'
+        date: '',
+        month: '',
+        year: '',
+        hour: '',
+        minute: ''
     });
 
     useEffect(() => {

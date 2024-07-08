@@ -2,8 +2,8 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import Image from "next/image";
 import aot from "@/public/logo-aot.png";
-import { DDMMYYY, monthtext } from '@/app/utils/DateTimeConversion';
-import { thbtxt } from '@/app/utils/DateTimeConversion';
+import { DDMMYYY, monthtext } from '@/app/Utils/DateTimeConversion';
+import { thbtxt } from '@/app/Utils/DateTimeConversion';
 import { formatNumber, GetData } from '@/app/utils/Datahandling';
 import { useSearchParams } from 'next/navigation'
 
