@@ -87,7 +87,7 @@ function InsertInad() {
     }, [endDateTime, months]);
 
     useEffect(() => {
-        if (fullstartdate && fullenddate && fullstartdate >= fullenddate) {
+        if (fullstartdate && fullenddate && fullstartdate > fullenddate) {
             Swal.fire({
                 icon: "error",
                 title: "ERROR",

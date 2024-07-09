@@ -1,8 +1,8 @@
-'use client'
+"use client";
+
 import { useState } from "react";
 import { FaEdit, FaPrint, FaSearch, FaTrash } from "react-icons/fa";
-import { postData } from "@/app/Utils/RequestHandle";
-import FlightSelect from "../Components/FlightSelect";
+import { deleteData, postData } from "@/app/Utils/RequestHandle";
 import AirlineSelect from "../Components/AirlineSelect";
 import Swal from "sweetalert2";
 import { formatDate } from "@/app/Utils/DateTime";
@@ -57,6 +57,32 @@ function Page() {
         router.push(`report/edit/${id}`);
     };
 
+    const deleted = async (id) => {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        });
+
+        if (result.isConfirmed) {
+            try {
+                const response = await deleteData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/delete/${id}`);
+                if (response.status === 200) {
+                    Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+                    setUserdata(userdata.filter((item) => item.id !== id));
+                    handleSearch()
+                } else {
+                    Swal.fire('Error!', 'There was a problem deleting the record.', 'error');
+                }
+            } catch (error) {
+                console.error("Error deleting data:", error);
+                Swal.fire('Error!', 'There was a problem deleting the record.', 'error');
+            }
+        }
+    };
+
     return (
         <div className="flex-1">
             <div className="card-header">รายการ AOTGA INAD</div>
@@ -75,7 +101,13 @@ function Page() {
                     </select>
                 </div>
                 <div>
-                    <input type="number" className="mt-7" min={2024} value={year} onChange={(e) => setYear(parseInt(e.target.value))} />
+                    <input
+                        type="number"
+                        className="mt-7"
+                        min={2024}
+                        value={year}
+                        onChange={(e) => setYear(parseInt(e.target.value))}
+                    />
                 </div>
                 <div>
                     <button onClick={handleSearch} className="mt-7">
@@ -83,13 +115,13 @@ function Page() {
                     </button>
                 </div>
             </div>
-            {userdata.length > 0 && (
-                <div className="flex">
-                    <button><FaPrint className="mr-2" /> พิมพ์ Summary</button>
+            {/* {userdata.length > 0 && (
+                <div className="flex mt-4">
+                    <button className="mr-4"><FaPrint className="mr-2" /> พิมพ์ Summary</button>
                     <button><FaPrint className="mr-2" /> พิมพ์ Report</button>
                 </div>
-            )}
-            <div className="flex-1">
+            )} */}
+            <div className="flex-1 mt-4">
                 <table className="w-full">
                     <thead>
                         <tr>
@@ -115,7 +147,7 @@ function Page() {
                                 <tr key={index}>
                                     <td className="text-center border-gray-400 border border-collapse">{index + 1}</td>
                                     <td className="text-center border-gray-400 border border-collapse">{formatDate(item.DateIN)}</td>
-                                    <td className="px-2 border-gray-400 border border-collapse">{item.IATACode}{item.FlightNo}</td>
+                                    <td className="px-2 border-gray-400 border border-collapse uppercase">{item.IATACode}{item.FlightNo}</td>
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Route}</td>
                                     <td className="text-center border-gray-400 border border-collapse">{item.Time_IN.slice(0, -3)}</td>
                                     <td className="text-center border-gray-400 border border-collapse">{item.Time_OUT.slice(0, -3)}</td>
@@ -123,8 +155,8 @@ function Page() {
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Passenger}</td>
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Remark}</td>
                                     <td className="px-2 border-gray-400 border border-collapse flex justify-between">
-                                        <button onClick={() => editClick(item.id)}><FaEdit color="yellow" /></button>
-                                        <button><FaTrash color="red" /></button>
+                                        {/* <button onClick={() => editClick(item.id)}><FaEdit color="yellow" /></button> */}
+                                        <button onClick={() => deleted(item.id)} ><FaTrash color="red" /> ลบ</button>
                                     </td>
                                 </tr>
                             ))
