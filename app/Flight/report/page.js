@@ -115,12 +115,12 @@ function Page() {
                     </button>
                 </div>
             </div>
-            {userdata.length > 0 && (
+            {/* {userdata.length > 0 && (
                 <div className="flex mt-4">
                     <button className="mr-4"><FaPrint className="mr-2" /> พิมพ์ Summary</button>
                     <button><FaPrint className="mr-2" /> พิมพ์ Report</button>
                 </div>
-            )}
+            )} */}
             <div className="flex-1 mt-4">
                 <table className="w-full">
                     <thead>
