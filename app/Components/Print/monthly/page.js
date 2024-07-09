@@ -1,14 +1,14 @@
-"use client"
-import React, { Suspense, useEffect, useState } from 'react';
+"use client";
+import React, { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import aot from "@/public/logo-aot.png";
-import { DDMMYYY, monthtext } from '@/app/Utils/DateTimeConversion';
-import { thbtxt } from '@/app/Utils/DateTimeConversion';
-import { formatNumber, GetData } from '@/app/Utils/Datahandling';
-import { useSearchParams } from 'next/navigation';
-import Style from './Style.css';
+import { DDMMYYY, monthtext } from "@/app/Utils/DateTimeConversion";
+import { thbtxt } from "@/app/Utils/DateTimeConversion";
+import { formatNumber, GetData } from "@/app/Utils/Datahandling";
+import { useSearchParams } from "next/navigation";
+import Style from "./Style.css";
 
-function Page() {
+function PageContent() {
     const searchParams = useSearchParams();
 
     const airline = searchParams.get('airline');
@@ -89,7 +89,7 @@ function Page() {
     };
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <>
             <div style={{ width: '210mm', height: '297mm', fontFamily: 'THSarabun, sans-serif', fontSize: '16pt' }} className="flex-1 bg-white text-black p-5">
                 <div className='flex'>
                     <Image
@@ -197,6 +197,14 @@ function Page() {
                     </div>
                 </div>
             </div>
+        </>
+    );
+}
+
+function Page() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <PageContent />
         </Suspense>
     );
 }
