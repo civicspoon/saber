@@ -1,0 +1,13 @@
+
+@font-face {
+    font-family: 'THSarabun';
+    src: url('../../../../public/font/THSarabun.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@media print {
+    body {
+        font-family: 'THSarabun', sans-serif;
+        background-color: white;
+    }
+}

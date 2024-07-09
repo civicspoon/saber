@@ -57,7 +57,7 @@ function AirlineSelect({ onAirlineSelect }) {
                 <option value="">เลือกสายการบิน</option>
                 {airlinelist && airlinelist.map((airline) => (
                     <option key={airline.id} value={airline.id}>
-                        {airline.Name}
+                        {airline.Name} -  {airline.IATACode}
                     </option>
                 ))}
             </select>

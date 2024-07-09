@@ -32,6 +32,9 @@ input,select,textarea{
   @apply p-2  text-yellow-400 bg-slate-500 m-1 rounded-md placeholder:text-gray-300
 }
 
+@media print{
+  background-color: white;
+}
 
 button{
   @apply flex items-center p-2 m-2 text-center rounded-lg shadow-black shadow-sm text-xl justify-center
