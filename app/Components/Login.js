@@ -29,11 +29,7 @@ function Login() {
             const data = await response.json();
             if (data.status === 200) {
                 sessionStorage.setItem('usdt', JSON.stringify(data.userData))
-<<<<<<< HEAD
-                router.push(`/${data.userData.Role}`)
-=======
                 router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/${data.userData.Role}`)
->>>>>>> 65c27c507ede338f1adc2c1be9c1e3457cf0af73
 
                 // Handle successful login, e.g., save token, redirect, etc.
                 console.log('Login successful:', data);

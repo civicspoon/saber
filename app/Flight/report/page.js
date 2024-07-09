@@ -155,8 +155,8 @@ function Page() {
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Passenger}</td>
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Remark}</td>
                                     <td className="px-2 border-gray-400 border border-collapse flex justify-between">
-                                        <button onClick={() => editClick(item.id)}><FaEdit color="yellow" /></button>
-                                        <button onClick={() => deleted(item.id)} ><FaTrash color="red" /></button>
+                                        {/* <button onClick={() => editClick(item.id)}><FaEdit color="yellow" /></button> */}
+                                        <button onClick={() => deleted(item.id)} ><FaTrash color="red" /> ลบ</button>
                                     </td>
                                 </tr>
                             ))
