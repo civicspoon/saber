@@ -8,9 +8,7 @@ import { formatNumber, GetData } from '@/app/Utils/Datahandling';
 import { useSearchParams } from 'next/navigation';
 import Style from './Style.css';
 
-function Page() {
-    const searchParams = useSearchParams();
-
+function Page({ searchParams }) {
     const airline = searchParams.get('airline');
     const month = searchParams.get('month');
     const year = searchParams.get('year');
@@ -87,7 +85,6 @@ function Page() {
         "BeforeVat": totalcost,
         "CustomerCode": customerCode
     };
-
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <div style={{ width: '210mm', height: '297mm', fontFamily: 'THSarabun, sans-serif', fontSize: '16pt' }} className="flex-1 bg-white text-black p-5">
