@@ -154,7 +154,7 @@ function Page() {
                                     <td className="text-center border-gray-400 border border-collapse">{item.Diff.slice(0, -3)}</td>
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Passenger}</td>
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Remark}</td>
-                                    <td className="px-2 border-gray-400 border border-collapse flex justify-between">
+                                    <td className="flex px-2 border-gray-400 border border-collapse  justify-between items-center">
                                         {/* <button onClick={() => editClick(item.id)}><FaEdit color="yellow" /></button> */}
                                         <button onClick={() => deleted(item.id)} ><FaTrash color="red" /> ลบ</button>
                                     </td>
