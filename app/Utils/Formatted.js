@@ -11,3 +11,7 @@ export function formatNumber(num) {
     // Combine the integer part with the decimal part
     return `${integer}.${decimal}`;
 }
+
+export function firstCapital(str) {
+    return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}

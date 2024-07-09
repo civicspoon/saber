@@ -1,3 +1,4 @@
+import { firstCapital } from '@/app/Utils/Formatted';
 import { postData } from '@/app/Utils/RequestHandle';
 import React, { useEffect, useState } from 'react';
 import { FaSave } from 'react-icons/fa'; // นำเข้าไอคอนที่ต้องการใช้
@@ -33,8 +34,8 @@ function NewAirline() {
             }
 
             const data = {
-                Name: name,
-                IATACode: iataCode,
+                Name: firstCapital(name),
+                IATACode: iataCode.toUpperCase(),
                 DepartmentID: departmentid,
                 CustomerCode: code
             };
