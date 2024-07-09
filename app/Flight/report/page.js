@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { FaEdit, FaPrint, FaSearch, FaTrash } from "react-icons/fa";
-import { deleteData, postData } from "@/app/Utils/RequestHandle";
+import { deleteData, getData, postData } from "@/app/Utils/RequestHandle";
 import AirlineSelect from "../Components/AirlineSelect";
 import Swal from "sweetalert2";
 import { formatDate } from "@/app/Utils/DateTime";
 import { useRouter } from "next/navigation";
+import ThisMonthHandle from "../Components/ThisMonthHandle";
 
 function Page() {
     const [userdata, setUserdata] = useState([]);
@@ -32,17 +33,37 @@ function Page() {
 
     const handleSearch = async () => {
         try {
-            const data = { airlineid, month, year };
-            const response = await postData(`${process.env.NEXT_PUBLIC_API_URL}/report/search`, data);
-            if (response.result.length === 0) {
-                Swal.fire({
-                    title: "Info",
-                    text: "ไม่พบข้อมูล",
-                    icon: "info"
-                });
-                setUserdata([]);
+
+            if (!airlineid) {
+               const usdt = JSON.parse(sessionStorage.getItem('usdt'));
+               console.log('====================================');
+              const departmentid = usdt.DepartmentID;
+               console.log('====================================');
+                // const data = { airlineid, month, year };
+                const response = await getData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/monthhandling/${departmentid}/${month}/${year}`);
+                if (response.result.length === 0) {
+                    Swal.fire({
+                        title: "Info",
+                        text: "ไม่พบข้อมูล",
+                        icon: "info"
+                    });
+                    setUserdata([]);
+                } else {
+                    setUserdata(response.result);
+                }
             } else {
-                setUserdata(response.result);
+                const data = { airlineid, month, year };
+                const response = await postData(`${process.env.NEXT_PUBLIC_API_URL}/report/search`, data);
+                if (response.result.length === 0) {
+                    Swal.fire({
+                        title: "Info",
+                        text: "ไม่พบข้อมูล",
+                        icon: "info"
+                    });
+                    setUserdata([]);
+                } else {
+                    setUserdata(response.result);
+                }
             }
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -114,36 +135,28 @@ function Page() {
                         <FaSearch /> รายการ
                     </button>
                 </div>
+                
             </div>
-            {/* {userdata.length > 0 && (
-                <div className="flex mt-4">
-                    <button className="mr-4"><FaPrint className="mr-2" /> พิมพ์ Summary</button>
-                    <button><FaPrint className="mr-2" /> พิมพ์ Report</button>
-                </div>
-            )} */}
-            <div className="flex-1 mt-4">
-                <table className="w-full">
-                    <thead>
-                        <tr>
-                            <th className="px-4">#</th>
-                            <th className="px-4">Date</th>
-                            <th className="px-4">FlightNo</th>
-                            <th className="px-4">Route</th>
-                            <th className="px-4">TimeIn</th>
-                            <th className="px-4">TimeOut</th>
-                            <th className="px-4">Hours</th>
-                            <th className="px-4">PaxName</th>
-                            <th className="px-4">Remark</th>
-                            <th className="px-4">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {userdata.length === 0 ? (
+<div className="text-center">* สามารถแสดงรายการทั้งหมดในเดือน-ปีที่ต้องการได้โดยไม่ต้องเลือกสายการบิน</div>
+            <div className="flex-1 mt-4 p-2 bg-slate-700 rounded-lg shadow-md shadow-gray-400">
+                {userdata.length > 0 ? (
+                    <table className="w-full">
+                        <thead>
                             <tr>
-                                <td colSpan="10" className="text-center bg-red-500">ไม่พบข้อมูล</td>
+                                <th className="px-4">#</th>
+                                <th className="px-4">Date</th>
+                                <th className="px-4">FlightNo</th>
+                                <th className="px-4">Route</th>
+                                <th className="px-4">TimeIn</th>
+                                <th className="px-4">TimeOut</th>
+                                <th className="px-4">Hours</th>
+                                <th className="px-4">PaxName</th>
+                                <th className="px-4">Remark</th>
+                                <th className="px-4">Action</th>
                             </tr>
-                        ) : (
-                            userdata.map((item, index) => (
+                        </thead>
+                        <tbody>
+                            {userdata.map((item, index) => (
                                 <tr key={index}>
                                     <td className="text-center border-gray-400 border border-collapse">{index + 1}</td>
                                     <td className="text-center border-gray-400 border border-collapse">{formatDate(item.DateIN)}</td>
@@ -159,10 +172,12 @@ function Page() {
                                         <button onClick={() => deleted(item.id)} ><FaTrash color="red" /> ลบ</button>
                                     </td>
                                 </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <div className="text-center bg-red-500 p-4">ไม่พบข้อมูล</div>
+                )}
             </div>
         </div>
     );
