@@ -8,6 +8,8 @@ import Swal from "sweetalert2";
 import { formatDate } from "@/app/Utils/DateTime";
 import { useRouter } from "next/navigation";
 import ThisMonthHandle from "../Components/ThisMonthHandle";
+import Modal from "@/app/Components/Modal";
+import EditRecord from "../Components/EditRecord";
 
 function Page() {
     const [userdata, setUserdata] = useState([]);
@@ -179,6 +181,11 @@ function Page() {
                     <div className="text-center bg-red-500 p-4">ไม่พบข้อมูล</div>
                 )}
             </div>
+
+<Modal>
+    <EditRecord recordID={recordID} />
+</Modal>
+
         </div>
     );
 }
