@@ -10,6 +10,7 @@ function Page() {
     const [departmentid, setDepartmentid] = useState(null);
     const [flights, setFlights] = useState([]);
     const [selectedAirline, setSelectedAirline] = useState(null);
+    const [activeAirline, setActiveAirline] = useState(null);
 
     useEffect(() => {
         const session = sessionStorage.getItem('usdt');
@@ -58,17 +59,18 @@ function Page() {
 
     const handleAirlineClick = (airline) => {
         setSelectedAirline(airline);
+        setActiveAirline(airline.id);
         setFlights([]); // Clear flights before fetching new ones
     };
 
     return (
-        <div className="flex ">
-            <div className="w-2/5 text-2xl bg-slate-700 shadow-lg text-white p-4 rounded-lg m-2">
+        <div className="flex">
+            <div className="w-auto text-2xl bg-slate-700 shadow-lg text-white p-4 rounded-lg m-2">
                 <div className="cardheader">รายการสายการบิน</div>
                 <ul>
                     {airlinelist.map((airline) => (
                         <li
-                            className="flex items-center my-1 p-2 rounded-md hover:bg-slate-500 cursor-pointer"
+                            className={`flex items-center my-1 p-2 rounded-md cursor-pointer ${activeAirline === airline.id ? 'bg-slate-500' : 'hover:bg-slate-500'}`}
                             key={airline.id}
                             onClick={() => handleAirlineClick(airline)}
                         >
@@ -83,13 +85,13 @@ function Page() {
                 {flights.length > 0 ? (
                     <ul>
                         {flights.map((flight) => (
-                            <li key={flight.id} className="flex text-yellow-400" ><FaPlaneArrival className="mr-2"/> {flight.IATACode}{flight.FlightNo} - {flight.Route}</li>
+                            <li key={flight.id} className="flex text-yellow-400  my-1 p-2" ><FaPlaneArrival className="mr-2"/> {flight.IATACode}{flight.FlightNo} - {flight.Route}</li>
                         ))}
                     </ul>
                 ) : (
                     <p>No flights available for the selected airline.</p>
                 )}
-            </div>
+            </div> 
         </div>
     );
 }

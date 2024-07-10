@@ -184,7 +184,7 @@ function Page() {
             </div>
 
 <Modal>
-    <EditRecord recordID={recordID} />
+    {/* <EditRecord recordID={recordID} /> */}
 </Modal>
 
         </div>
