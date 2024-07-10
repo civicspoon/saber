@@ -8,6 +8,7 @@ const Navbar = () => {
   const menuItems = [
     { name: 'หน้าแรก', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight` },
     { name: 'รายงาน', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/report` },    
+    { name: 'สายการบิน/เที่ยวบิน', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/airlineandflight` },    
    
   ];
   
@@ -77,7 +78,7 @@ const Navbar = () => {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="text-gray-300 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-gray-300 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-xl font-medium"
                   >
                     {item.name}
                   </a>

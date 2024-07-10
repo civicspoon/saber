@@ -17,6 +17,7 @@ function Page() {
     const [month, setMonth] = useState(null);
     const [year, setYear] = useState(2024);
     const router = useRouter();
+    const [recordID, setRecordID] = useState();
 
     const months = [
         { value: 1, label: "มกราคม" },
@@ -183,7 +184,7 @@ function Page() {
             </div>
 
 <Modal>
-    <EditRecord recordID={recordID} />
+    {/* <EditRecord recordID={recordID} /> */}
 </Modal>
 
         </div>
