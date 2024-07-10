@@ -192,9 +192,9 @@ function Page() {
                 )}
             </div>
 
-            <Modal>
-                {/* <EditRecord recordID={recordID} /> */}
-            </Modal>
+<Modal>
+   
+</Modal>
 
         </div>
     );
