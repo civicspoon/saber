@@ -95,7 +95,7 @@ export function TextToWord(n) {
     
     // Get the result by translating the given number
     let result = translate(n);
-    return result.trim() + '.';
+    return result.trim() + ' ';
 }
 
 export function thbtxt(n){
