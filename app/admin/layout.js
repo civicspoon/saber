@@ -1,25 +1,17 @@
-// app/admin/layout.js
-import { Inter } from "next/font/google";
-import "../globals.css";
-import AdminNavbar from "./Components/AdminNavbar";
+// components/layout.js
+import React from 'react';
+import Sidebar from './Components/Sidebar';
 
-const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-    title: "Admin Dashboard",
-    description: "Admin Panel for managing application settings",
+const Layout = ({ children }) => {
+  return (
+    <div className="flex h-screen bg-white">
+      <Sidebar />
+      <main className="flex-1">
+        {children}
+      </main>
+    </div>
+  );
 };
 
-export default function AdminLayout({ children }) {
-    return (
-        <html lang="en">
-            <body className={`flex-1 bg-white text-gray-800`} style={{ background: 'white', color: 'black' }}>
-                <AdminNavbar />
-                <div className="mt-20 p-5">
-                    {children}
-                </div>
-
-            </body>
-        </html>
-    );
-}
+export default Layout;
