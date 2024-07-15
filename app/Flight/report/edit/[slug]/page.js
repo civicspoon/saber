@@ -6,8 +6,21 @@ import FlightSelect from "@/app/Flight/Components/FlightSelect";
 import { formatDateToThaiLocale } from "@/app/Utils/DateTime";
 import { getData } from "@/app/Utils/RequestHandle";
 import { useEffect, useState } from "react";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { GrUpdate } from "react-icons/gr";
 
 function Page({ params }) {
+    const [emid, setEmID] = useState(null)
+    useEffect(() => {
+        const session = sessionStorage.getItem('usdt');
+        if (session) {
+            const sessionData = JSON.parse(session);
+            const { EmID } = sessionData;
+            setEmID(EmID);
+            // Further logic with EmID if needed
+        }
+    }, []);
+
     // State variables
     const months = [
         'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
@@ -35,8 +48,8 @@ function Page({ params }) {
         FlightID: updatedata.FlightID || initdata.FlightID,
         Passenger: updatedata.Passenger || initdata.Passenger,
         Remark: updatedata.Remark || initdata.Remark,
-        EditBy: updatedata.EditBy || initdata.EditBy,
-        updatedAt: updatedata.updatedAt || initdata.updatedAt,
+        EditBy: emid,
+        updatedAt: Date.now(),
     });
 
     const mergedData = mergeData(initdata, updatedata);
@@ -82,6 +95,13 @@ function Page({ params }) {
                 });
 
                 setFlightID(response.inad.FlightID);
+                setUpdatedata({
+                    ...updatedata,
+                    TimeIn: response.inad.TimeIn,
+                    TimeOut: response.inad.TimeOut,
+                    Passenger: response.inad.Passenger,
+                    Remark: response.inad.Remark
+                });
             }
         } catch (error) {
             console.error('Error fetching initial data:', error);
@@ -120,6 +140,16 @@ function Page({ params }) {
         }
     };
 
+    const handlePassengerChange = (event) => {
+        const { value } = event.target;
+        setUpdatedata(prevData => ({ ...prevData, Passenger: value }));
+    };
+
+    const handleRemarkChange = (event) => {
+        const { value } = event.target;
+        setUpdatedata(prevData => ({ ...prevData, Remark: value }));
+    };
+
     const [selectedAirline, setSelectedAirline] = useState("");
     const handleAirlineSelect = (selectedValue) => {
         setSelectedAirline(selectedValue);
@@ -140,7 +170,7 @@ function Page({ params }) {
     return (
         <div className="bg-slate-700 rounded-lg p-4 flex-wrap">
             <div className="text-2xl font-semibold underline">รายละเอียด</div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center mt-2">
                 <table className="rounded-t-lg overflow-hidden w-full">
                     <thead className="bg-gray-300 text-gray-900 border p-4">
                         <tr>
@@ -173,7 +203,8 @@ function Page({ params }) {
                 </table>
 
                 {initdata.TimeIn && (
-                    <div className="flex mt-4 flex-wrap w-full">
+                    <div className="flex-col mt-8 flex-wrap w-full border-t">
+                        <div className="font-semibold underline text-2xl mt-4">ฟอร์มแก้ไขข้อมูล</div>
                         <div className="flex w-auto">
                             <DateTimePicker
                                 Label="แก้ไขเวลาเริ่ม"
@@ -191,7 +222,22 @@ function Page({ params }) {
                             <FlightSelect selectedAirline={selectedAirline} onChange={handleFlightSelect} />
                         </div>
                         <div>
-                            <button onClick={updateval}>Update</button>
+                            <div>Passenger</div>
+                            <input className="w-full" type="text" value={updatedata.Passenger} onChange={handlePassengerChange} />
+                        </div>
+                        <div>
+                            <div>Remark</div>
+                            <input className="w-full" type="text" value={updatedata.Remark} onChange={handleRemarkChange} />
+                        </div>
+                        <div className="flex">
+                            <button onClick={updateval} className="bg-orange-300 text-black font-semibold p-4 hover:text-white">
+                                <GrUpdate className="mr-2" />
+                                Update
+                            </button>
+                            <button onClick={() => history.back()} className="text-gray-100 hover:text-yellow-300 font-semibold p-4">
+                               <FaArrowAltCircleLeft size={32} className="pr-2" /> Go Back
+                            </button>
+
                         </div>
                     </div>
                 )}
