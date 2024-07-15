@@ -4,12 +4,11 @@ import saber from '@/public/saber.png'
 import Image from 'next/image'
 
 
-const Navbar = () => {
+const AdminNavbar = () => {
 
   const menuItems = [
     { name: 'หน้าแรก', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight` },
-    { name: 'รายงาน', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/report` },    
-    { name: 'สายการบิน/เที่ยวบิน', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/airlineandflight` },    
+    { name: 'AOTGA INAD', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/report` },    
    
   ];
   
@@ -17,7 +16,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-green-900  fixed w-full z-10 top-0 shadow-lg">
+    <nav className="bg-gray-900  fixed w-full z-10 top-0 shadow-lg">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -71,7 +70,7 @@ const Navbar = () => {
               src={saber}
               height={50}
               />
-              <span className='mt-3 ml-3 font-semibold'>SABER Flight Services</span>
+              <span className='mt-3 ml-3 font-semibold text-white'>SABER Flight Services</span>
             </div>
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
@@ -79,7 +78,7 @@ const Navbar = () => {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="text-gray-300 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-xl font-medium"
+                    className="text-gray-300 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-lg font-medium"
                   >
                     {item.name}
                   </a>
@@ -107,4 +106,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AdminNavbar;
