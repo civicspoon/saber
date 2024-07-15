@@ -28,3 +28,17 @@ export function  formatDate(dateString) {
     
     return formattedDate;
 }
+
+export function  formatDateToThaiLocale  (dateString){
+    const date = new Date(dateString);
+
+    // Extract date components
+    const day = date.getUTCDate();
+    const month = date.toLocaleString('th-TH', { month: 'long' });
+    const year = date.getUTCFullYear();
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+
+    return `${day} ${month} ${year} เวลา ${hours}:${minutes}`;
+};
+
