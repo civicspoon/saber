@@ -51,7 +51,7 @@ function AirlineSelect({ onAirlineSelect }) {
     };
 
     return (
-        <div>
+        <div >
             <div>กรุณาเลือกสายการบิน</div>
             <select value={selectedAirline} onChange={handleChange} required>
                 <option value="">เลือกสายการบิน</option>

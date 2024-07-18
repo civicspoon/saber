@@ -24,7 +24,7 @@ function MonthDashboard() {
     }, []);
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center text-black">
             <div className="text-3xl font-semibold mb-4">Dashboard</div>
             <div className="w-full max-w-screen-lg rounded-lg p-4 shadow-md">
                 <div className="">

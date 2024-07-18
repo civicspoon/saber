@@ -6,6 +6,7 @@ import FlightSelect from "./FlightSelect";
 import AirlineSelect from "./AirlineSelect";
 import { FaSave } from "react-icons/fa";
 import { postData } from "@/app/Utils/RequestHandle";
+import { formatDate } from "@/app/Utils/DateTime";
 
 function InsertInad() {
     const months = [
@@ -41,7 +42,7 @@ function InsertInad() {
     });
 
     useEffect(() => {
-        setRemarkval(`OUTBOUND ${outbound} ${outboundflight} ON ${outbounddate}`)
+        setRemarkval(`OUTBOUND ${outbound} ${outboundflight} ON ${formatDate(outbounddate)}`)
     }, [outbound, outboundflight, outbounddate])
 
     useEffect(() => {

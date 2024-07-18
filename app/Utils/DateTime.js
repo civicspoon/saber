@@ -16,8 +16,11 @@ export function  formatDate(dateString) {
     const date = new Date(dateString);
     
     // Array of month names
-    const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-    
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June', 'July',
+        'August', 'September', 'October', 'November', 'December'
+      ];
+        
     // Get day, month, and year
     const day = date.getDate();
     const month = months[date.getMonth()];

@@ -1,10 +1,19 @@
 // components/Sidebar.js
 'use client'
-FaHome
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { FaHome, FaCalendar, FaInbox } from 'react-icons/fa';
 
-import { FaHome,FaCalendar,FaInbox } from 'react-icons/fa';
+// Sample session data
+const sessionData = {
+  "EmID": "11",
+  "Name": "User admin",
+  "DepartmentID": 5,
+  "DivisionAccess": "[3,4]",
+  "Role": "Admin"
+};
+
+// Parse the DivisionAccess values
+const divisionAccess = JSON.parse(sessionData.DivisionAccess);
 
 const Sidebar = () => {
   const [hovered, setHovered] = useState(null);
@@ -18,18 +27,20 @@ const Sidebar = () => {
   };
 
   const sidebarItems = [
-    { icon: FaHome, label: 'Dashboard', link: '/dashboard' },
-    { icon: FaCalendar, label: 'Calendar', link: '/calendar' },
-    { icon: FaInbox, label: 'Inbox', link: '/inbox' },
-    { icon: FaInbox, label: 'Team', link: '/team' },
-    { icon: FaInbox, label: 'Projects', link: '/projects' },
+    { icon: FaHome, label: 'Dashboard', link: '/dashboard', division: 1 },
+    { icon: FaCalendar, label: 'Calendar', link: '/ViewForCheck', division: 2 },
+    { icon: FaInbox, label: 'Inbox', link: '/inbox', division: 3 },
+    { icon: FaInbox, label: 'Team', link: '/team', division: 3 },
+    { icon: FaInbox, label: 'Projects', link: '/projects', division: 4 },
   ];
 
+  // Filter sidebar items based on DivisionAccess
+  const filteredSidebarItems = sidebarItems.filter(item => divisionAccess.includes(item.division));
+
   return (
-    <aside className="bg-gray-800 text-gray-300 w-auto+-+
-    ++ py-4">
+    <aside className="bg-gray-800 text-gray-300 w-auto py-4">
       <ul>
-        {sidebarItems.map((item, index) => {
+        {filteredSidebarItems.map((item, index) => {
           const Icon = item.icon;
           const isHovered = hovered === Icon;
 

@@ -1,5 +1,5 @@
 export function DDMMYYY(dateval) {
-    const shortMonths = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    const shortMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     // ตรวจสอบว่า dateval ไม่เป็นค่าว่าง และไม่เป็น undefined
     if (!dateval) {
