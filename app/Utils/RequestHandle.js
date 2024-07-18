@@ -41,14 +41,18 @@ export async function postData(url, data) {
   }
 
 // PUT method
-export async function putData(url, body) {
+export async function putData(url, obj) {
   try {
     const requestOptions = {
       method: "PUT",
       headers: myHeaders,
-      body: JSON.stringify(body),
+      body: obj,
       redirect: "follow"
     };
+
+    console.log('=body===================================');
+    console.log(requestOptions);
+    console.log('====================================');
 
     const response = await fetch(url, requestOptions);
     const data = await response.json();

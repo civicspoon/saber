@@ -1,0 +1,41 @@
+@media print {
+    @page {
+        size: A4 landscape;
+    }
+    body {
+        font-family: 'THSarabun', sans-serif;
+        background-color: white;
+    }
+
+  
+@font-face {
+    font-family: 'THSarabun';
+    src: url('../../../public/font/THSarabun.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+    body {
+        background: white; /* Ensure the background is white when printing */
+        color: black; /* Set text color to black when printing */
+
+    }
+}
+
+@media screen {
+    @page {
+        size: A4 landscape;
+    }
+
+    body {
+        background: white; /* Ensure the background is white on screen */
+        color: black; /* Set text color to black when printing */
+
+    }
+}
+
+.tableborder {
+    border-collapse: collapse;
+    border: 0.5px solid black;
+    @apply px-1; /* Assuming you're using Tailwind CSS for padding */
+}

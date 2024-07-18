@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import {useRouter} from "next/navigation";
 import Navbar from "./Components/Navbar";
+import "../globals.css";
 
 export default function Layout({ children }) {
     const router = useRouter()

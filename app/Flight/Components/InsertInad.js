@@ -6,6 +6,7 @@ import FlightSelect from "./FlightSelect";
 import AirlineSelect from "./AirlineSelect";
 import { FaSave } from "react-icons/fa";
 import { postData } from "@/app/Utils/RequestHandle";
+import { formatDate } from "@/app/Utils/DateTime";
 
 function InsertInad() {
     const months = [
@@ -41,17 +42,17 @@ function InsertInad() {
     });
 
     useEffect(() => {
-        setRemarkval(`OUTBOUND ${outbound} ${outboundflight} ON ${outbounddate}`)
+        setRemarkval(`OUTBOUND ${outbound} ${outboundflight} ON ${formatDate(outbounddate)}`)
     }, [outbound, outboundflight, outbounddate])
 
-	useEffect(() => {
-		setRemarkval('PASSENGER IS ALLOWED');
+    useEffect(() => {
+        setRemarkval('PASSENGER IS ALLOWED');
     }, [checkboxdisable])
 
-	const handleCheckbox = () => {
+    const handleCheckbox = () => {
         setDisableRemark(!disableRemark);
         setCheckboxdisable(!checkboxdisable);
-       
+
     };
 
 
@@ -136,16 +137,16 @@ function InsertInad() {
         console.log(data);
         const response = await postData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/new`, data);
 
-        if (response.status===201) {
+        if (response.status === 201) {
             Swal.fire({
                 icon: "success",
                 title: "Success",
                 text: "Data submitted successfully."
             });
-			document.getElementById("inadform").reset();
-console.log('====================================');
-console.log('resetform');
-console.log('====================================');
+            document.getElementById("inadform").reset();
+            console.log('====================================');
+            console.log('resetform');
+            console.log('====================================');
             clearForm();
         }
     };
@@ -224,32 +225,32 @@ console.log('====================================');
                         <div>
                             <div>
                                 <label>LastName / Familyname / Surename
-                                    <input 
-                                    type="text" 
-                                    placeholder="LastName / Familyname / Surename" 
-                                    className="uppercase" 
-                                    value={surname} 
-                                    onChange={(e) => setSurname(e.target.value)}
+                                    <input
+                                        type="text"
+                                        placeholder="LastName / Familyname / Surename"
+                                        className="uppercase"
+                                        value={surname}
+                                        onChange={(e) => setSurname(e.target.value)}
                                     />
                                 </label>
                             </div>
                             <div>
                                 <label>Middle Name / Second  Name
-                                    <input type="text" 
-                                    placeholder="Middle Name / Second  Name" 
-                                    className="uppercase"
-                                    value={midname} 
-                                    onChange={(e) => setMidname(e.target.value)}
+                                    <input type="text"
+                                        placeholder="Middle Name / Second  Name"
+                                        className="uppercase"
+                                        value={midname}
+                                        onChange={(e) => setMidname(e.target.value)}
                                     />
                                 </label>
                             </div>
                             <div>
                                 <label>Name / Given Name / First Name
-                                    <input type="text" 
-                                    placeholder="Name / Given Name / First Name" 
-                                    className="uppercase" 
-                                    value={firstname}
-                                    onChange={(e) => setFirstname(e.target.value)}
+                                    <input type="text"
+                                        placeholder="Name / Given Name / First Name"
+                                        className="uppercase"
+                                        value={firstname}
+                                        onChange={(e) => setFirstname(e.target.value)}
                                     />
                                 </label>
                             </div>
