@@ -4,10 +4,11 @@ import DateTimePicker from "@/app/Components/DateTimePicker";
 import AirlineSelect from "@/app/Flight/Components/AirlineSelect";
 import FlightSelect from "@/app/Flight/Components/FlightSelect";
 import { formatDateToThaiLocale } from "@/app/Utils/DateTime";
-import { getData } from "@/app/Utils/RequestHandle";
+import { getData, postData, putData } from "@/app/Utils/RequestHandle";
 import { useEffect, useState } from "react";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { GrUpdate } from "react-icons/gr";
+import Swal from "sweetalert2";
 
 function Page({ params }) {
     const [emid, setEmID] = useState(null)
@@ -52,7 +53,7 @@ function Page({ params }) {
         updatedAt: Date.now(),
     });
 
-    const mergedData = mergeData(initdata, updatedata);
+    // const mergedData = mergeData(initdata, updatedata);
 
     useEffect(() => {
         if (params.slug) {
@@ -162,10 +163,26 @@ function Page({ params }) {
     };
 
     const updateval = async () => {
+        const mergedData = mergeData(initdata, updatedata); // Generate the merged data
+        console.log('====================================');
         console.log(mergedData);
-        // Here, you would make the API call to update the data on the server
-        // await updateDataOnServer(mergedData);
-    };
+        console.log('====================================');
+        try {
+          const response = await postData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/update/${params.slug}`, mergedData);
+          console.log(response);
+      
+          if (response.status===200) {
+            Swal.fire({
+                text :response.message,
+                icon:"success",
+                title : "Updated"
+            })
+            setInitdata(response.updatedInad); // Update the state with the new data
+          }
+        } catch (error) {
+          console.error('Error updating data:', error);
+        }
+      };
 
     return (
         <div className="bg-slate-700 rounded-lg p-4 flex-wrap">
