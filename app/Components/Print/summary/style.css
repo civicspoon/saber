@@ -10,7 +10,7 @@
   
 @font-face {
     font-family: 'THSarabun';
-    src: url('../../../public/font/THSarabun.ttf') format('truetype');
+    src: url('../../../../public/font/THSarabun.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -24,12 +24,18 @@
 
 @media screen {
     @page {
-        size: A4 landscape;
+        /* size: A4 landscape; */
+        width: 29.7cm;
+        min-height: 21cm;
     }
 
-    body {
-        background: white; /* Ensure the background is white on screen */
+    .report {
+        background-color: #FAFAFA;
+        padding: 1cm;
         color: black; /* Set text color to black when printing */
+        width: 29.7cm;
+        min-height: 21cm;
+        zoom:1.5;
 
     }
 }

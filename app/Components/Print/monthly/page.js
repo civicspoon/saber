@@ -10,6 +10,7 @@ import Style from "./Style.css";
 
 function PageContent() {
     const searchParams = useSearchParams();
+    const [buttonVisible, setButtonVisible] = useState(true);
 
     const airline = searchParams.get('airline');
     const month = searchParams.get('month');
@@ -88,9 +89,34 @@ function PageContent() {
         "CustomerCode": customerCode
     };
 
+
+
+    const handlePrint = () => {
+        setButtonVisible(false);
+        setTimeout(() => {
+            window.print();
+        }, 100); // Delay to ensure the button is hidden before the print dialog opens
+    };
+
+    useEffect(() => {
+        const handleAfterPrint = () => setButtonVisible(true);
+        window.addEventListener('afterprint', handleAfterPrint);
+
+        return () => {
+            window.removeEventListener('afterprint', handleAfterPrint);
+        };
+    }, []);
+
     return (
         <>
-            <div style={{ width: '210mm', height: '297mm', fontFamily: 'THSarabun, sans-serif', fontSize: '16pt' }} className="flex-1 bg-white text-black p-5">
+         {buttonVisible && (
+                <div className='text-center my-2'>
+                    <button onClick={handlePrint} className='px-4 py-2 bg-blue-500 text-white rounded'>
+                        Print Report
+                    </button>
+                </div>
+            )}
+            <div className="report" style={{ width: '210mm', height: '297mm', fontFamily: 'THSarabun, sans-serif', fontSize: '16pt' }} className="flex-1 bg-white text-black p-5">
                 <div className='flex'>
                     <Image
                         src={aot}
@@ -197,6 +223,7 @@ function PageContent() {
                     </div>
                 </div>
             </div>
+           
         </>
     );
 }
