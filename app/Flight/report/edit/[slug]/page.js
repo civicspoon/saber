@@ -86,6 +86,10 @@ function Page({ params }) {
                     minute: timeInDate.getMinutes().toString().padStart(2, '0')
                 });
 
+                console.log('====================================');
+                console.log(timein);
+                console.log('====================================');
+
                 const timeOutDate = new Date(response.inad.TimeOut);
                 setTimeout({
                     date: timeOutDate.getDate().toString().padStart(2, '0'),

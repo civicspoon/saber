@@ -78,7 +78,7 @@ function page() {
                             <th className='border border-black px-2' style={{ width: '4%' }}>Total Hour</th>
                             <th className='border border-black px-2' style={{ width: '5%' }}>Number of PAX.</th>
                             <th className='border border-black px-2' style={{ width: "10%" }}>Rate Charge for INAD<br />Baht {inadrate} /1-INAD/1-Hour.</th>
-                            <th className='border border-black px-2' >REMARK.</th>
+                            <th className='border border-black px-2' >REMARK</th>
                         </tr>
                     </thead>
                     <tbody>
