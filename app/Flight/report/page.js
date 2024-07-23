@@ -192,15 +192,9 @@ function Page() {
                 )}
             </div>
 
-<<<<<<< HEAD
             <Modal>
                 {/* <EditRecord recordID={recordID} /> */}
             </Modal>
-=======
-<Modal>
-   
-</Modal>
->>>>>>> e493db4 (befor pull)
 
         </div>
     );
