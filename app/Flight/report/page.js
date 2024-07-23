@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaEdit, FaPrint, FaSearch, FaTrash } from "react-icons/fa";
+import { FaCheckCircle, FaEdit, FaPrint, FaSearch, FaTrash } from "react-icons/fa";
 import { deleteData, getData, postData } from "@/app/Utils/RequestHandle";
 import AirlineSelect from "../Components/AirlineSelect";
 import Swal from "sweetalert2";
@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import ThisMonthHandle from "../Components/ThisMonthHandle";
 import Modal from "@/app/Components/Modal";
 import EditRecord from "../Components/EditRecord";
+import { ImCross } from "react-icons/im";
 
 function Page() {
     const [userdata, setUserdata] = useState([]);
@@ -38,10 +39,10 @@ function Page() {
         try {
 
             if (!airlineid) {
-               const usdt = JSON.parse(sessionStorage.getItem('usdt'));
-               console.log('====================================');
-              const departmentid = usdt.DepartmentID;
-               console.log('====================================');
+                const usdt = JSON.parse(sessionStorage.getItem('usdt'));
+                console.log('====================================');
+                const departmentid = usdt.DepartmentID;
+                console.log('====================================');
                 // const data = { airlineid, month, year };
                 const response = await getData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/monthhandling/${departmentid}/${month}/${year}`);
                 if (response.result.length === 0) {
@@ -138,9 +139,9 @@ function Page() {
                         <FaSearch /> รายการ
                     </button>
                 </div>
-                
+
             </div>
-<div className="text-center">* สามารถแสดงรายการทั้งหมดในเดือน-ปีที่ต้องการได้โดยไม่ต้องเลือกสายการบิน</div>
+            <div className="text-center">* สามารถแสดงรายการทั้งหมดในเดือน-ปีที่ต้องการได้โดยไม่ต้องเลือกสายการบิน</div>
             <div className="flex-1 mt-4 p-2 bg-slate-700 rounded-lg shadow-md shadow-gray-400">
                 {userdata.length > 0 ? (
                     <table className="w-full">
@@ -155,6 +156,7 @@ function Page() {
                                 <th className="px-4">Hours</th>
                                 <th className="px-4">PaxName</th>
                                 <th className="px-4">Remark</th>
+                                <th className="px-4">Approved</th>
                                 <th className="px-4">Action</th>
                             </tr>
                         </thead>
@@ -170,6 +172,13 @@ function Page() {
                                     <td className="text-center border-gray-400 border border-collapse">{item.Diff.slice(0, -3)}</td>
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Passenger}</td>
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Remark}</td>
+                                    <td className="px-2 border-gray-400 border border-collapse text-center">
+                                        {item.Accept === 1 ? (
+                                            <span className="inline-flex items-center px-3 py-1 text-sm font-medium text-green-100 bg-green-600 rounded-full"><FaCheckCircle className="mr-2" />ตรวจแล้ว</span>
+                                        ) : item.Accept === 0 ? (
+                                            <span className="inline-flex items-center px-3 py-1 text-sm font-medium text-red-100 bg-red-600 rounded-full"><ImCross  className="mr-2"/>ผิด</span>
+                                        ) : null}
+                                    </td>
                                     <td className="flex px-2 border-gray-400 border border-collapse  justify-between items-center">
                                         <button onClick={() => editClick(item.id)}><FaEdit color="yellow" /> แก้ไข</button>
                                         <button onClick={() => deleted(item.id)} ><FaTrash color="red" /> ลบ</button>
@@ -183,9 +192,9 @@ function Page() {
                 )}
             </div>
 
-<Modal>
-    {/* <EditRecord recordID={recordID} /> */}
-</Modal>
+            <Modal>
+                {/* <EditRecord recordID={recordID} /> */}
+            </Modal>
 
         </div>
     );

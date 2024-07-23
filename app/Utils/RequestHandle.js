@@ -46,7 +46,7 @@ export async function putData(url, obj) {
     const requestOptions = {
       method: "PUT",
       headers: myHeaders,
-      body: obj,
+      body:JSON.stringify(obj),
       redirect: "follow"
     };
 
