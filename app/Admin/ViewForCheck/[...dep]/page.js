@@ -18,6 +18,19 @@ function Page({ params }) {
         'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
     ];
 
+    function HHMM(dateString) {
+        const date = new Date(dateString);
+        date.setHours(date.getHours() - 7);
+
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = date.toLocaleString('default', { month: 'long' });
+        const year = date.getFullYear();
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+
+        return `${hours}:${minutes}`;
+    }
+
     const param = params.dep;
     const depName = decodeURIComponent(param[1]);
     const depid = param[0];
@@ -53,31 +66,31 @@ function Page({ params }) {
         try {
             // Log the values to check their types
             console.log('ApproveClick called with id:', id, 'status:', status);
-    
+
             // Ensure id is a number and status is a boolean
             if (typeof id !== 'number' || typeof status !== 'boolean') {
                 throw new Error('Invalid id or status value');
             }
-    
+
             // Prepare the data to send in the request
             const data = {
                 id,
                 accept: status,
             };
-    
+
             // Make a PUT request to the API
             const result = await postData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/approve`, data);
-    
+
             // Optionally, handle the response data if needed
             console.log(result.message);
-    
+
             // Refresh the list after successful update
             getlist();
         } catch (error) {
             console.error('Error updating status:', error);
         }
     };
-    
+
 
     return (
         <div className="flex-1 text-black p-4">
@@ -145,8 +158,8 @@ function Page({ params }) {
                                     <td className="text-center border-gray-400 border border-collapse">{formatDate(item.DateVal)}</td>
                                     <td className="px-2 border-gray-400 border border-collapse uppercase">{item.AirlineCode}{item.FlightNo}</td>
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Route}</td>
-                                    <td className="text-center border-gray-400 border border-collapse">{item.TimeIn.slice(0, -3)}</td>
-                                    <td className="text-center border-gray-400 border border-collapse">{item.TimeOut.slice(0, -3)}</td>
+                                    <td className="text-center border-gray-400 border border-collapse">{HHMM(item.TimeIn)}</td>
+                                    <td className="text-center border-gray-400 border border-collapse">{HHMM(item.TimeOut)}</td>
                                     <td className="text-center border-gray-400 border border-collapse">{item.time_difference}</td>
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Passenger}</td>
                                     <td className="px-2 border-gray-400 border border-collapse">{item.Remark}</td>
