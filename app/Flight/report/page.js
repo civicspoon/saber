@@ -113,7 +113,7 @@ function Page() {
     };
 
     return (
-        <div className="flex-1">
+        <div className="flex-1 h-screen">
             <div className="card-header">รายการ AOTGA INAD</div>
             <div className="flex justify-center items-center">
                 <div>
