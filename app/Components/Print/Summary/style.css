@@ -1,47 +1,53 @@
 @media print {
     @page {
         size: A4 landscape;
+        margin: 1cm;
+        @bottom-right {
+            content: "Page " counter(page) " of " counter(pages);
+        }
     }
+
     body {
         font-family: 'THSarabun', sans-serif;
         background-color: white;
+        counter-reset: page;
+        color: black;
     }
 
-  
-@font-face {
-    font-family: 'THSarabun';
-    src: url('../../../../public/font/THSarabun.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
+    @font-face {
+        font-family: 'THSarabun';
+        src: url('../../../../public/font/THSarabun.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
 
-    body {
-        background: white; /* Ensure the background is white when printing */
-        color: black; /* Set text color to black when printing */
-
+    .tableborder {
+        border-collapse: collapse;
+        border: 0.5px solid black;
+        padding-left: 0.25rem; /* Equivalent to Tailwind's px-1 */
+        padding-right: 0.25rem; /* Equivalent to Tailwind's px-1 */
     }
 }
 
 @media screen {
-    @page {
-        /* size: A4 landscape; */
-        width: 29.7cm;
-        min-height: 21cm;
-    }
-
     .report {
         background-color: #FAFAFA;
         padding: 1cm;
-        color: black; /* Set text color to black when printing */
+        color: black;
         width: 29.7cm;
         min-height: 21cm;
-        zoom:1.5;
+        zoom: 1.5;
+    }
 
+    .tableborder {
+        border-collapse: collapse;
+        border: 0.5px solid black;
+        padding-left: 0.25rem; /* Equivalent to Tailwind's px-1 */
+        padding-right: 0.25rem; /* Equivalent to Tailwind's px-1 */
     }
 }
 
-.tableborder {
-    border-collapse: collapse;
-    border: 0.5px solid black;
-    @apply px-1; /* Assuming you're using Tailwind CSS for padding */
+body {
+    background: white; /* Ensure the background is white when printing */
+    color: black; /* Set text color to black when printing */
 }
