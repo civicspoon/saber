@@ -79,11 +79,11 @@ function Page({ params }) {
 
                 const timeInDate = new Date(response.inad.TimeIn);
                 setTimein({
-                    date: timeInDate.getDate().toString().padStart(2, '0'),
-                    month: timeInDate.toLocaleString('th-TH', { month: 'long' }),
+                    date: timeInDate.getUTCDate().toString().padStart(2, '0'),
+                    month: timeInDate.toUTCString('th-TH', { month: 'long' }),
                     year: timeInDate.getFullYear().toString(),
-                    hour: timeInDate.getHours().toString().padStart(2, '0'),
-                    minute: timeInDate.getMinutes().toString().padStart(2, '0')
+                    hour: timeInDate.getUTCHours().toString().padStart(2, '0'),
+                    minute: timeInDate.getUTCMinutes().toString().padStart(2, '0')
                 });
 
                 console.log('====================================');
@@ -92,11 +92,11 @@ function Page({ params }) {
 
                 const timeOutDate = new Date(response.inad.TimeOut);
                 setTimeout({
-                    date: timeOutDate.getDate().toString().padStart(2, '0'),
-                    month: timeOutDate.toLocaleString('th-TH', { month: 'long' }),
+                    date: timeOutDate.getUTCDate().toString().padStart(2, '0'),
+                    month: timeOutDate.toUTCString('th-TH', { month: 'long' }),
                     year: timeOutDate.getFullYear().toString(),
-                    hour: timeOutDate.getHours().toString().padStart(2, '0'),
-                    minute: timeOutDate.getMinutes().toString().padStart(2, '0')
+                    hour: timeOutDate.getUTCHours().toString().padStart(2, '0'),
+                    minute: timeOutDate.getUTCMinutes().toString().padStart(2, '0')
                 });
 
                 setFlightID(response.inad.FlightID);
