@@ -1,27 +1,22 @@
-// components/Sidebar.js
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaHome, FaCalendar, FaInbox } from 'react-icons/fa';
 
-// Sample session data
-// const sessionData = {
-//   "EmID": "11",
-//   "Name": "User admin",
-//   "DepartmentID": 5,
-//   "DivisionAccess": "[3,4]",
-//   "Role": "Admin"
-// };
-
-// Parse the DivisionAccess values
-
 const Sidebar = () => {
-  const basUrl = process.env.NEXT_PUBLIC_BASE_URL
+  const basUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const router = useRouter();
-  const userdata = JSON.parse(sessionStorage.getItem('usdt'));
-  const divisionAccess = JSON.parse(userdata.DivisionAccess); // Ensure it's an array
-
+  const [userdata, setUserdata] = useState(null);
+  const [divisionAccess, setDivisionAccess] = useState([]);
   const [hovered, setHovered] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const user = JSON.parse(sessionStorage.getItem('usdt'));
+      setUserdata(user);
+      setDivisionAccess(JSON.parse(user?.DivisionAccess || '[]'));
+    }
+  }, []);
 
   const handleHover = (icon) => {
     setHovered(icon);
@@ -45,6 +40,10 @@ const Sidebar = () => {
   const handleNavigation = (link) => {
     router.push(link);
   };
+
+  if (!userdata) {
+    return null; // or a loading indicator
+  }
 
   return (
     <aside className="bg-gray-800 text-gray-300 w-auto py-4">
