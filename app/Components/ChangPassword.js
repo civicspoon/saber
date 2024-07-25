@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useEffect, useState } from "react";
 import { FaKey } from "react-icons/fa";
 import { getData, postData } from "../Utils/RequestHandle";
@@ -8,8 +8,14 @@ function ChangePassword() {
     const [oldpass, setOldpassword] = useState("");
     const [newpass, setNewpassword] = useState("");
     const [repass, setRepassword] = useState("");
+    const [userdata, setUserdata] = useState(null);
 
-    const userdata = JSON.parse(sessionStorage.getItem('usdt'));
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const userDataFromSession = JSON.parse(sessionStorage.getItem('usdt'));
+            setUserdata(userDataFromSession);
+        }
+    }, []);
 
     const updatepassword = async () => {
         if (!newpass || !repass) {
@@ -91,9 +97,11 @@ function ChangePassword() {
     }
 
     useEffect(() => {
-        console.log('====================================');
-        console.log(userdata.EmID);
-        console.log('====================================');
+        if (userdata) {
+            console.log('====================================');
+            console.log(userdata.EmID);
+            console.log('====================================');
+        }
     }, [userdata]);
 
     return (
