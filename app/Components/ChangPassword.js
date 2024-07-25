@@ -39,9 +39,6 @@ function ChangePassword() {
                         icon: 'success',
                         text: 'เปลี่ยนรหัสผ่านสำเร็จ'
                     });
-                    setOldpassword("");
-                    setNewpassword(""); 
-                    setRepassword("");
                 } else {
                     Swal.fire({
                         icon: 'error',

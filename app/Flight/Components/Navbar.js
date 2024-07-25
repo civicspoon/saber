@@ -1,28 +1,23 @@
 'use client'
 import { useState } from 'react';
-import Image from 'next/image';
-import saber from '@/public/saber.png';
+import saber from '@/public/saber.png'
+import Image from 'next/image'
+
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleLogOff = () => {
-    // Clear session data
-    sessionStorage.removeItem('usdt');
-    // Redirect to root URL (or a login page)
-    window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}/`; // Update the URL as needed
-  };
 
   const menuItems = [
     { name: 'หน้าแรก', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight` },
     { name: 'รายงาน', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/report` },    
     { name: 'สายการบิน/เที่ยวบิน', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/airlineandflight` },    
-    { name: 'เปลี่ยนรหัสผ่าน', href: `${process.env.NEXT_PUBLIC_BASE_URL}/Flight/ChangePassword` },    
-    { name: 'ออกจากระบบ', href: '', action: handleLogOff } // New log off item
+   
   ];
+  
+
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-green-900 fixed w-full z-10 top-0 shadow-lg">
+    <nav className="bg-green-900  fixed w-full z-10 top-0 shadow-lg">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -72,9 +67,9 @@ const Navbar = () => {
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex justify-center">
               <Image 
-                alt='Saber'
-                src={saber}
-                height={50}
+              alt='Saber'
+              src={saber}
+              height={50}
               />
               <span className='mt-3 ml-3 font-semibold'>SABER Flight Services</span>
             </div>
@@ -84,12 +79,6 @@ const Navbar = () => {
                   <a
                     key={item.name}
                     href={item.href}
-                    onClick={(e) => {
-                      if (item.action) {
-                        e.preventDefault(); // Prevent default anchor behavior
-                        item.action();
-                      }
-                    }}
                     className="text-gray-300 hover:bg-blue-500 hover:text-white px-3 py-2 rounded-md text-xl font-medium"
                   >
                     {item.name}
@@ -107,12 +96,6 @@ const Navbar = () => {
             <a
               key={item.name}
               href={item.href}
-              onClick={(e) => {
-                if (item.action) {
-                  e.preventDefault(); // Prevent default anchor behavior
-                  item.action();
-                }
-              }}
               className="text-gray-300 hover:bg-blue-500 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >
               {item.name}
