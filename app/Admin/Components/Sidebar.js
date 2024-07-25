@@ -43,7 +43,7 @@ const Sidebar = () => {
     { icon: FaInbox, label: 'Inbox', link: './inbox', division: 1 },
     { icon: FaInbox, label: 'Team', link: './team', division: 1 },
     { icon: FaInbox, label: 'Projects', link: './projects', division: 1 },
-    { icon: FaKey, label: 'Change Password', link: `${basUrl}/ChangePassword`, division: 1 },
+    { icon: FaKey, label: 'Change Password', link: `${basUrl}/Admin/ChangePassword`, division: 0 },
     { icon: FaSignOutAlt, label: 'Logout', link: '', division: 0 }  // New logout item
   ];
 
