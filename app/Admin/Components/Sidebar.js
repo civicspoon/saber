@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { FaHome, FaCalendar, FaInbox } from 'react-icons/fa';
+import { FaHome, FaCalendar, FaInbox, FaKey, FaSignOutAlt } from 'react-icons/fa';
 
 const Sidebar = () => {
   const basUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -26,20 +26,29 @@ const Sidebar = () => {
     setHovered(null);
   };
 
+  const handleNavigation = (link) => {
+    router.push(link);
+  };
+
+  const handleLogout = () => {
+    // Clear session data
+    sessionStorage.removeItem('usdt');
+    // Redirect to root URL
+    router.push('/');
+  };
+
   const sidebarItems = [
     { icon: FaHome, label: 'Dashboard', link: `${basUrl}/Admin`, division: 3 },
     { icon: FaCalendar, label: 'Calendar', link: './ViewForCheck', division: 1 },
     { icon: FaInbox, label: 'Inbox', link: './inbox', division: 1 },
     { icon: FaInbox, label: 'Team', link: './team', division: 1 },
     { icon: FaInbox, label: 'Projects', link: './projects', division: 1 },
+    { icon: FaKey, label: 'Change Password', link: `${basUrl}/ChangePassword`, division: 1 },
+    { icon: FaSignOutAlt, label: 'Logout', link: '', division: 0 }  // New logout item
   ];
 
-  // Filter sidebar items based on DivisionAccess
-  const filteredSidebarItems = sidebarItems.filter(item => divisionAccess.includes(item.division));
-
-  const handleNavigation = (link) => {
-    router.push(link);
-  };
+  // Filter sidebar items based on DivisionAccess, but always include division 0 items
+  const filteredSidebarItems = sidebarItems.filter(item => item.division === 0 || divisionAccess.includes(item.division));
 
   if (!userdata) {
     return null; // or a loading indicator
@@ -58,7 +67,7 @@ const Sidebar = () => {
               className="group flex items-center px-6 py-2 cursor-pointer transition-all duration-300 hover:bg-gray-700"
               onMouseEnter={() => handleHover(Icon)}
               onMouseLeave={handleHoverExit}
-              onClick={() => handleNavigation(item.link)}
+              onClick={() => item.label === 'Logout' ? handleLogout() : handleNavigation(item.link)}
             >
               <Icon className={`h-6 w-6 mr-4 ${isHovered ? 'scale-125' : 'scale-100'}`} />
               <span className="truncate">{item.label}</span>
