@@ -36,7 +36,7 @@ const Sidebar = () => {
     // Clear session data
     sessionStorage.removeItem('usdt');
     // Redirect to root URL
-    router.push('/');
+    router.push(`${basUrl}`);
   };
 
   const sidebarItems = [
@@ -46,7 +46,7 @@ const Sidebar = () => {
     { icon: FaInbox, label: 'Team', link: './team', division: 1 },
     { icon: FaInbox, label: 'Projects', link: './projects', division: 1 },
     { icon: FaKey, label: 'Change Password', link: `${basUrl}/Admin/ChangePassword`, division: 0 },
-    { icon: FaSignOutAlt, label: 'Logout', link: '', division: 0 }  // New logout item
+    { icon: FaSignOutAlt, label: 'Logout', link: ``, division: 0 }  // New logout item
   ];
 
   // Filter sidebar items based on DivisionAccess, but always include division 0 items
