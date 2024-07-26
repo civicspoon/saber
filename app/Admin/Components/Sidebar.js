@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaHome, FaCalendar, FaInbox, FaKey, FaSignOutAlt } from 'react-icons/fa';
+import { IoIosDocument } from "react-icons/io";
+import { FaUserSecret } from "react-icons/fa6";
 
 const Sidebar = () => {
   const basUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -38,8 +40,8 @@ const Sidebar = () => {
   };
 
   const sidebarItems = [
-    { icon: FaHome, label: 'Dashboard', link: `${basUrl}/Admin`, division: 3 },
-    { icon: FaCalendar, label: 'Calendar', link: './ViewForCheck', division: 1 },
+    { icon: FaUserSecret, label: 'AOTGA INAD', link: `${basUrl}/Admin`, division: 3 },  // admin Flight
+    { icon: IoIosDocument , label: 'Whatdoc', link: `${basUrl}/Admin/WhatDoc`, division: 1 },
     { icon: FaInbox, label: 'Inbox', link: './inbox', division: 1 },
     { icon: FaInbox, label: 'Team', link: './team', division: 1 },
     { icon: FaInbox, label: 'Projects', link: './projects', division: 1 },
