@@ -9,5 +9,19 @@
     body {
         font-family: 'THSarabun', sans-serif;
         background-color: white;
+        
+    }
+}
+
+@media screen {
+    body {
+        font-family: 'THSarabun', sans-serif;
+        background-color: black;
+        zoom: 1.5;
+    }
+    .report {
+        font-family: 'THSarabun', sans-serif;
+        background-color: white;
+        /* zoom: 1.5; */
     }
 }

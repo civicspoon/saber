@@ -19,9 +19,9 @@ export default function Layout({ children }) {
     }, [sessiondata]);
 
     return (
-        <section>
+        <section className="flex h-screen">
             <Navbar />
-            <div className="flex-1 mt-20 m-5">
+            <div className=" mt-20 m-5">
                 {children}
             </div>
         </section>
