@@ -1,12 +1,12 @@
 // ClientComponent.js
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { GetData, formatNumber } from '@/app/Utils/Datahandling';
 import { DDMMYYY, HHMM, getDayOfWeek, inadCharge, monthtext } from '@/app/Utils/DateTimeConversion';
 import '@/app/Components/Print/depsummary/style.css';
 
-function page() {
+function Page() {
     const [userdata, setUserdata] = useState(null);
     const [depid, setDepid] = useState(null);
 
@@ -14,7 +14,6 @@ function page() {
         if (typeof window !== 'undefined') {
             const session = JSON.parse(sessionStorage.getItem('usdt'));
             setDepid(session.DepartmentID);
-
         }
     }, []);
 
@@ -146,11 +145,15 @@ function page() {
                         </tfoot>
                     </table>
                 </div>
-
             </div>
-
         </>
     );
 }
 
-export default page;
+export default function PageWrapper() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <Page />
+        </Suspense>
+    );
+}

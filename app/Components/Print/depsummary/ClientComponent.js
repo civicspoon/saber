@@ -51,6 +51,8 @@ function ClientComponent() {
                 let [hours, minutes] = val.time_difference.split(':').map(Number);
                 if (minutes > 0) {
                     tmphour += hours + 1;
+                }else{
+                    tmphour += hours
                 }
                 setAirport(data[0].Airport);
                 setInadrate(data[0].InadRate);

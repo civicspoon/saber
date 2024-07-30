@@ -28,7 +28,7 @@ function ClientComponent() {
                 setData(result);
             };
             fetchData();
-            console.log('fetch');
+            // console.log('fetch');
         }
     }, [airline, month, year]);
 
@@ -40,16 +40,23 @@ function ClientComponent() {
             data.forEach(val => {
                 total += inadCharge(val.time_difference, val.InadRate);
                 let [hours, minutes] = val.time_difference.split(':').map(Number);
+
                 if (minutes > 0) {
                     tmphour += hours + 1;
+                }else{
+                    tmphour += hours
                 }
+
+                console.log('==============Total===tmphour===================');
+                console.log(hours,minutes,tmphour);
+                
                 setAirport(data[0].Airport);
                 setInadrate(data[0].InadRate);
                 setAirlinename(data[0].Name);
             });
             setGrandtotal(total.toFixed(2));
             setHourtotal(tmphour);
-            console.log('le ', data.length);
+            // console.log('le ', data.length);
         }
     }, [data]);
 

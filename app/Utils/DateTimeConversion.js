@@ -42,15 +42,15 @@ export function inadCharge(time,rate){
      let cost = 0;
     let [hours, minutes, seconds] = time.split(':').map(Number);
     
-    console.log("h ", hours);
-    console.log("m ", minutes);
-    console.log("cost ", cost);
+    // console.log("h ", hours);
+    // console.log("m ", minutes);
+    // console.log("cost ", cost);
     if (minutes >= 1) {
         hours += 1; // Add 1 to cost if minutes are greater than or equal to 1
     }
     cost += hours * rate; // Add cost based on hours
-    console.log("cost+ ", cost);
-    console.log('cost ', cost);
+    // console.log("cost+ ", cost);
+    // console.log('cost ', cost);
     return (cost);
 
 }
