@@ -21,7 +21,7 @@ export default function Layout({ children }) {
     return (
         <section className="flex h-screen">
             <Navbar />
-            <div className=" mt-20 m-5">
+            <div className="flex mt-20 m-5 shadow-lg w-full p-2 rounded-lg">
                 {children}
             </div>
         </section>
