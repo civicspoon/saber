@@ -19,8 +19,8 @@ export function monthtext(m){
 export function HHMM(dateval) {
     const date = new Date(dateval)
     // Get hours and minutes from the date
-    const hours = String(date.getHours()).padStart(2, '0'); // Ensure two digits
-    const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure two digits
+    const hours = String(date.getUTCHours()).padStart(2, '0'); // Ensure two digits
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0'); // Ensure two digits
 
     // Concatenate hours and minutes with a colon in between
     return `${hours}:${minutes}`;
