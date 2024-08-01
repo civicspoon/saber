@@ -191,8 +191,8 @@ function PageContent() {
                             <tr className='border' style={{ height: '250pt', verticalAlign: 'top' }}>
                                 <td className='border text-center  border-black ' ><div>{datatmp.CustomerCode}</div></td>
                                 <td className='border  border-black px-2' >
-                                    Security Service Charge for Escort Deportee Flight at <br />
-                                    {datatmp.Airport} {/* Airport */}<br />
+                                    Security Service Charge for Escort Deportee Flight<br />
+                                    at {datatmp.Airport} {/* Airport */}<br />
                                     for {datatmp.Monthly} {/* Monthly */} <br /><br />
                                     <div className='pl-2 w-full'>
                                         1. Security Agent for Escort Deportee<br/>
