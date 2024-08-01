@@ -9,7 +9,9 @@ import { useSearchParams } from "next/navigation";
 import Style from "@/app/Components/Print/monthly/Style.css";
 
 function PageContent() {
-    const [depid, setDepid] = useState(null);
+    const searchParams = useSearchParams();
+
+    const [depid, setDepid] = useState(searchParams.get('depid'));
     const [data, setData] = useState(null);
     const [totalcost, setTotalcost] = useState(0);
     const [airlinecode, setAirlinecode] = useState('');
@@ -19,14 +21,7 @@ function PageContent() {
     const [groupedFlights, setGroupedFlights] = useState([]);
     const [buttonVisible, setButtonVisible] = useState(true);
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const session = JSON.parse(sessionStorage.getItem('usdt'));
-            setDepid(session.DepartmentID);
-        }
-    }, []);
-
-    const searchParams = useSearchParams();
+    
     const airline = searchParams.get('airline');
     const month = searchParams.get('month');
     const year = searchParams.get('year');
@@ -148,8 +143,8 @@ function PageContent() {
                             <div>บริษัท รักษาความปลอดภัย ท่าอากาศยานไทย จำกัด</div>
                             <div>AOT Aviation Security Company Limited</div>
                         </div>
-                        <div className='w-full flex justify-end text-end mt-2'>
-                            Inadmissible Passenger Report (INAD)
+                        <div className='-pr-2 w-full flex text-3xl justify-end text-end mt-2'>
+                            Pre
                         </div>
                     </div>
                 </div>
