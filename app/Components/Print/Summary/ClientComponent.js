@@ -107,10 +107,10 @@ function ClientComponent() {
                                 <th className='border border-black px-2' style={{ width: '3%' }}>Routing</th>
                                 <th className='border border-black px-2' style={{ width: '20%' }}>Passenger Name</th>
                                 <th className='border border-black px-2' style={{ width: '4%' }}>Time IN</th>
-                                <th className='border border-black px-2' style={{ width: '4%' }}>Time OUT</th>
+                                <th className='border border-black px-2' style={{ width: '4%', }}>Time OUT</th>
                                 <th className='border border-black px-2' style={{ width: '4%' }}>Total Hour</th>
                                 <th className='border border-black px-2' style={{ width: '5%' }}>Number of PAX.</th>
-                                <th className='border border-black px-2' style={{ width: "10%" }}>Rate Charge for INAD<br />Baht {inadrate} /1-INAD/1-Hour.</th>
+                                <th className='border border-black px-2' style={{ width: "15%",fontSize: '7pt' }}>Rate Charge for INAD<br />Baht {inadrate} /1-INAD/1-Hour.</th>
                                 <th className='border border-black px-2'>REMARK</th>
                             </tr>
                         </thead>
@@ -149,18 +149,25 @@ function ClientComponent() {
                         </tfoot>
                     </table>
                 </div>
-                <div className='flex w-full  ml-44 mt-5 justify-between' style={{ fontSize: '8pt', fontWeight: 'normal' }}>
-                    <div className='w-2/5'>
+
+                <div className='flex w-full'>
+                    <div className='w-2/5'></div>
+                    <div className='w-3/5 mt-6  flex flex-col' style={{ fontSize: '8pt' }}>
+
+                        <div className='text-left ml-11'>
+                            Prepared by ______________________({prepareby}) ______________________({manager})
+                        </div>
+
+
+                        <div className='text-left mt-5  ml-11 '>
+                            Verified by _______________________(Wikornthip Sinchai) ______________________(Kachean Kittipreechasak)
+                        </div>
 
                     </div>
-
-                    <div className='w-3/5 mt-5 '>
-                        <div className='font-semibold'>Prepared by ______________________({prepareby}) ______________________({manager})</div>
-                        <div className='font-semibold mt-5'>Verified by _______________________(Wikornthip Sinchai) ______________________(Kachean Kittipreechasak)</div>
-                    </div>
-
                 </div>
-            </div>
+
+
+            </div >
 
         </>
     );
