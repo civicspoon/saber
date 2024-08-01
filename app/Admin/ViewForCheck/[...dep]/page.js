@@ -1,16 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FaSearch, FaEdit, FaTrash, FaCheckCircle, FaCross } from "react-icons/fa";
+import { FaSearch, FaCheckCircle } from "react-icons/fa";
+import { ImCross } from "react-icons/im";
 import CheckHandle from "../../Components/CheckHandle";
 import AirlineByDep from "../../Components/AirlineByDep";
-import { getData, postData, putData } from "@/app/Utils/RequestHandle";
+import { getData, postData } from "@/app/Utils/RequestHandle";
 import { formatDate } from "@/app/Utils/DateTime";
-import { ImCross } from "react-icons/im";
 
 function Page({ params }) {
+    const param = params.dep;
+    const depName = decodeURIComponent(param[1]);
+    const depid = param[0];
+    const initialMonth = parseInt(param[2], 10); // Ensure these are integers
+    const initialYear = parseInt(param[3], 10);
+
     const [selectedAirline, setSelectedAirline] = useState('');
-    const [month, setMonth] = useState(new Date().getMonth() + 1); // Months are 0-indexed, so add 1
-    const [year, setYear] = useState(new Date().getFullYear());
+    const [month, setMonth] = useState(initialMonth); // Initializing with correct values
+    const [year, setYear] = useState(initialYear);
     const [handlelist, setHandlelist] = useState([]);
 
     const thaiMonths = [
@@ -30,10 +36,6 @@ function Page({ params }) {
 
         return `${hours}:${minutes}`;
     }
-
-    const param = params.dep;
-    const depName = decodeURIComponent(param[1]);
-    const depid = param[0];
 
     const handleSelectAirline = (airlineId) => {
         setSelectedAirline(airlineId);
@@ -64,9 +66,6 @@ function Page({ params }) {
 
     const ApproveClick = async (id, status) => {
         try {
-            // Log the values to check their types
-            console.log('ApproveClick called with id:', id, 'status:', status);
-
             // Ensure id is a number and status is a boolean
             if (typeof id !== 'number' || typeof status !== 'boolean') {
                 throw new Error('Invalid id or status value');
@@ -90,7 +89,6 @@ function Page({ params }) {
             console.error('Error updating status:', error);
         }
     };
-
 
     return (
         <div className="flex-1 text-black p-4">
@@ -123,7 +121,7 @@ function Page({ params }) {
                     onChange={handleYearChange}
                 />
                 <span>
-                    <button>
+                    <button onClick={getlist}>
                         <FaSearch />
                     </button>
                 </span>

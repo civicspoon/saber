@@ -42,9 +42,9 @@ const Sidebar = () => {
   const sidebarItems = [
     { icon: FaUserSecret, label: 'AOTGA INAD', link: `${basUrl}/Admin`, division: 3 },  // admin Flight
     { icon: IoIosDocument , label: 'Whatdoc', link: `${basUrl}/Admin/WhatDoc`, division: 1 },
-    { icon: FaInbox, label: 'Inbox', link: './inbox', division: 1 },
-    { icon: FaInbox, label: 'Team', link: './team', division: 1 },
-    { icon: FaInbox, label: 'Projects', link: './projects', division: 1 },
+    { icon: FaInbox, label: 'Inbox', link: './inbox', division: 5 },
+    { icon: FaInbox, label: 'Team', link: './team', division: 5 },
+    { icon: FaInbox, label: 'Projects', link: './projects', division: 5 },
     { icon: FaKey, label: 'Change Password', link: `${basUrl}/Admin/ChangePassword`, division: 0 },
     { icon: FaSignOutAlt, label: 'Logout', link: ``, division: 0 }  // New logout item
   ];
