@@ -20,6 +20,8 @@ function ClientComponent() {
     const [grandtotal, setGrandtotal] = useState(0);
     const [hourtotal, setHourtotal] = useState(0);
     const [buttonVisible, setButtonVisible] = useState(true);
+    const [prepareby,setPrepareby] = useState(null)
+    const [manager,setManager] = useState(null)
 
     useEffect(() => {
         if (airline && month && year) {
@@ -43,16 +45,20 @@ function ClientComponent() {
 
                 if (minutes > 0) {
                     tmphour += hours + 1;
-                }else{
+                } else {
                     tmphour += hours
                 }
 
                 console.log('==============Total===tmphour===================');
-                console.log(hours,minutes,tmphour);
-                
+                console.log(hours, minutes, tmphour);
+
                 setAirport(data[0].Airport);
                 setInadrate(data[0].InadRate);
                 setAirlinename(data[0].Name);
+                setPrepareby(data[0].ApproveBy)
+                setManager(data[0].Manager)
+
+
             });
             setGrandtotal(total.toFixed(2));
             setHourtotal(tmphour);
@@ -143,7 +149,17 @@ function ClientComponent() {
                         </tfoot>
                     </table>
                 </div>
+                <footer className='flex w-full  fixed mt-5 justify-between'  style={{ fontSize: '8pt', fontWeight: 'normal' }}>
+                    <div className='w-2/5'>
 
+                    </div>
+                    
+                    <div className='w-3/5'>
+<span>Prepared by ______________________({prepareby}) ______________________({manager})</span><br/>
+<span>Verified by ______________________(Wikornthip Sinchai) ______________________(Kachean Kittipreechasak)</span><br/>
+                    </div>
+                    
+                </footer>
             </div>
 
         </>
