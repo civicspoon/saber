@@ -183,19 +183,19 @@ function PageContent() {
                                 <th className='border  border-black  font-thin' >รายการสินค้า / บริการ<br /> DESCRIPTION</th>
                                 <th className='border  border-black font-thin' style={{ width: '7%' }}>จำนวน<br /> QUANTITY</th>
                                 <th className='border border-black  font-thin' style={{ width: '5%' }}>หน่วย<br /> UNIT</th>
-                                <th className='border  border-black font-thin' style={{ width: '15%' }}>ราคาต่อหน่วย<br /> UNIT PRICE</th>
-                                <th className='border  border-black font-thin' style={{ width: '20%' }}>จำนวนเงิน<br /> AMOUNT</th>
+                                <th className='border  border-black font-thin' style={{ width: '10%' }}>ราคาต่อหน่วย<br /> UNIT PRICE</th>
+                                <th className='border  border-black font-thin' style={{ width: '15%' }}>จำนวนเงิน<br /> AMOUNT</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr className='border' style={{ height: '250pt', verticalAlign: 'top' }}>
                                 <td className='border text-center  border-black ' ><div>{datatmp.CustomerCode}</div></td>
                                 <td className='border  border-black px-2' >
-                                    Security Service Charge for Escort Deportee Flight<br />
+                                    Security Service Charge for INAD Passenger and Deportee Escort<br />
                                     at {datatmp.Airport} {/* Airport */}<br />
                                     for {datatmp.Monthly} {/* Monthly */} <br /><br />
                                     <div className='pl-2 w-full'>
-                                        1. Security Agent for Escort Deportee<br/>
+                                        1. Security Agent for INAD Passenger and Deportee Escort<br/>
                                         {Object.entries(groupedFlights).map(([flightNo, dates], index) => (
                                             <span key={index}>
                                                 -{flightNo} on {dates.join(', ')} <br />
