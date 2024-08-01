@@ -95,12 +95,12 @@ function Page() {
                 </div>
             )}
             <div className='flex-1 report items-center justify-center' style={{ fontFamily: 'Sarabun, sans-serif' }}>
-                <div className='w-full text-center' style={{ fontSize: '8pt', fontWeight: 'bold' }}>
-                    Monthly Summary Report INAD for AOTGA   at {airport} <br /> of {`${monthtext(month)} ${year}`}
+                <div className='w-full text-center' style={{ fontSize: '10pt', fontWeight: 'bold' }}>
+                    Monthly Summary Report for INAD of {airlinename} at {airport} <br /> of {`${monthtext(month)} ${year}`}
                 </div>
 
                 <div className='flex items-center text-center'>
-                    <table className='w-full m-auto' style={{ fontSize: '6pt', fontWeight: 'normal' }}>
+                    <table className='w-full m-auto' style={{ fontSize: '8pt', fontWeight: 'normal' }}>
                         <thead className='bg-gray-200'>
                             <tr>
                                 <th className='border border-black px-2' style={{ width: '2%' }}>NO</th>
@@ -110,10 +110,10 @@ function Page() {
                                 <th className='border border-black px-2' style={{ width: '3%' }}>Routing</th>
                                 <th className='border border-black px-2' style={{ width: '20%' }}>Passenger Name</th>
                                 <th className='border border-black px-2' style={{ width: '4%' }}>Time IN</th>
-                                <th className='border border-black px-2' style={{ width: '4%' }}>Time OUT</th>
+                                <th className='border border-black px-2' style={{ width: '4%', }}>Time OUT</th>
                                 <th className='border border-black px-2' style={{ width: '4%' }}>Total Hour</th>
                                 <th className='border border-black px-2' style={{ width: '5%' }}>Number of PAX.</th>
-                                <th className='border border-black px-2' style={{ width: "10%" }}>Rate Charge for INAD<br />Baht {inadrate} /1-INAD/1-Hour.</th>
+                                <th className='border border-black px-2' style={{ width: "15%",fontSize: '7pt' }}>Rate Charge for INAD<br />Baht {inadrate} /1-INAD/1-Hour.</th>
                                 <th className='border border-black px-2'>REMARK</th>
                             </tr>
                         </thead>
@@ -152,18 +152,26 @@ function Page() {
                         </tfoot>
                     </table>
                 </div>
-                <div className='flex w-full  ml-44 mt-5 justify-between' style={{ fontSize: '6pt', fontWeight: 'normal' }}>
-                    <div className='w-2/5'>
+
+                <div className='flex w-full'>
+                    <div className='w-2/5'></div>
+                    <div className='w-3/5 mt-6  flex flex-col' style={{ fontSize: '8pt' }}>
+
+                        <div className='text-left ml-11'>
+                            Prepared by ______________________({prepareby}) ______________________({manager})
+                        </div>
+
+
+                        <div className='text-left mt-5  ml-11 '>
+                            Verified by _______________________(Wikornthip Sinchai) ______________________(Kachean Kittipreechasak)
+                        </div>
 
                     </div>
-
-                    <div className='w-3/5 mt-5 '>
-                        <div className='font-semibold'>Prepared by ______________________({prepareby}) ______________________({manager})</div>
-                        <div className='font-semibold mt-5'>Verified by _______________________(Wikornthip Sinchai) ______________________(Kachean Kittipreechasak)</div>
-                    </div>
-
                 </div>
-            </div>
+
+
+            </div >
+
         </>
     );
 }
