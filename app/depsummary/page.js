@@ -29,6 +29,8 @@ function Page() {
     const [grandtotal, setGrandtotal] = useState(0);
     const [hourtotal, setHourtotal] = useState(0);
     const [buttonVisible, setButtonVisible] = useState(true);
+    const [prepareby,setPrepareby] = useState(null)
+    const [manager,setManager] = useState(null)
 
     useEffect(() => {
         if (depid && month && year) {
@@ -57,6 +59,9 @@ function Page() {
                 setAirport(data[0].Airport);
                 setInadrate(data[0].InadRate);
                 setAirlinename(data[0].Name);
+                setPrepareby(data[0].ApproveBy)
+                setManager(data[0].Manager)
+
             });
             setGrandtotal(total.toFixed(2));
             setHourtotal(tmphour);
@@ -146,6 +151,17 @@ function Page() {
                             </tr>
                         </tfoot>
                     </table>
+                </div>
+                <div className='flex w-full  ml-44 mt-5 justify-between' style={{ fontSize: '6pt', fontWeight: 'normal' }}>
+                    <div className='w-2/5'>
+
+                    </div>
+
+                    <div className='w-3/5 mt-5 '>
+                        <div className='font-semibold'>Prepared by ______________________({prepareby}) ______________________({manager})</div>
+                        <div className='font-semibold mt-5'>Verified by _______________________(Wikornthip Sinchai) ______________________(Kachean Kittipreechasak)</div>
+                    </div>
+
                 </div>
             </div>
         </>

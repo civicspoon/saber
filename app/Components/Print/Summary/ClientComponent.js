@@ -149,17 +149,17 @@ function ClientComponent() {
                         </tfoot>
                     </table>
                 </div>
-                <footer className='flex w-full  fixed mt-5 justify-between'  style={{ fontSize: '8pt', fontWeight: 'normal' }}>
+                <div className='flex w-full  ml-44 mt-5 justify-between'  style={{ fontSize: '6pt', fontWeight: 'normal' }}>
                     <div className='w-2/5'>
 
                     </div>
                     
-                    <div className='w-3/5'>
-<span>Prepared by ______________________({prepareby}) ______________________({manager})</span><br/>
-<span>Verified by ______________________(Wikornthip Sinchai) ______________________(Kachean Kittipreechasak)</span><br/>
+                    <div className='w-3/5 mt-5 '>
+<div className='font-semibold'>Prepared by ______________________({prepareby}) ______________________({manager})</div>
+<div className='font-semibold mt-5'>Verified by _______________________(Wikornthip Sinchai) ______________________(Kachean Kittipreechasak)</div>
                     </div>
                     
-                </footer>
+                </div>
             </div>
 
         </>
