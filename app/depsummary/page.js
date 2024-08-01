@@ -96,7 +96,7 @@ function Page() {
             )}
             <div className='flex-1 report items-center justify-center' style={{ fontFamily: 'Sarabun, sans-serif' }}>
                 <div className='w-full text-center' style={{ fontSize: '8pt', fontWeight: 'bold' }}>
-                    Monthly Summary Report for INAD  at {airport} <br /> of {`${monthtext(month)} ${year}`}
+                    Monthly Summary Report INAD for AOTGA   at {airport} <br /> of {`${monthtext(month)} ${year}`}
                 </div>
 
                 <div className='flex items-center text-center'>

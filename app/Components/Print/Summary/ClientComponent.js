@@ -92,12 +92,12 @@ function ClientComponent() {
                 </div>
             )}
             <div className='flex-1 report items-center justify-center' style={{ fontFamily: 'Sarabun, sans-serif' }}>
-                <div className='w-full text-center' style={{ fontSize: '8pt', fontWeight: 'bold' }}>
+                <div className='w-full text-center' style={{ fontSize: '10pt', fontWeight: 'bold' }}>
                     Monthly Summary Report for INAD of {airlinename} at {airport} <br /> of {`${monthtext(month)} ${year}`}
                 </div>
 
                 <div className='flex items-center text-center'>
-                    <table className='w-full m-auto' style={{ fontSize: '6pt', fontWeight: 'normal' }}>
+                    <table className='w-full m-auto' style={{ fontSize: '8pt', fontWeight: 'normal' }}>
                         <thead className='bg-gray-200'>
                             <tr>
                                 <th className='border border-black px-2' style={{ width: '2%' }}>NO</th>
@@ -149,7 +149,7 @@ function ClientComponent() {
                         </tfoot>
                     </table>
                 </div>
-                <div className='flex w-full  ml-44 mt-5 justify-between' style={{ fontSize: '6pt', fontWeight: 'normal' }}>
+                <div className='flex w-full  ml-44 mt-5 justify-between' style={{ fontSize: '8pt', fontWeight: 'normal' }}>
                     <div className='w-2/5'>
 
                     </div>
