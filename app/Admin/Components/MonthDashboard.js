@@ -1,17 +1,22 @@
 'use client';
+import Modal from "@/app/Components/Modal";
 import { getData } from "@/app/Utils/RequestHandle";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaEye, FaSearch } from "react-icons/fa";
-import { FaPrint } from "react-icons/fa6";
+import { FaEye, FaRegSave, FaSave, FaSearch } from "react-icons/fa";
+import { FaPencil, FaPrint } from "react-icons/fa6";
 
 function MonthDashboard() {
     const currentDate = new Date();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const currentMonth = currentDate.getMonth() + 1; // getMonth() returns 0-11, so add 1 for 1-12
     const currentYear = currentDate.getFullYear();
 
     const [month, setMonth] = useState(currentMonth);
     const [year, setYear] = useState(currentYear);
+    const [preinv, setPreinv] = useState([]);
+
 
     const months = [
         { value: 1, label: "มกราคม" },
@@ -55,6 +60,16 @@ function MonthDashboard() {
 
     const viewdep = (depid, dep) => {
         router.push(`./Admin/ViewForCheck/${depid}/${dep}/${month}/${year}`);
+    };
+
+
+    const openModal = (depname,depid) => {
+        alert(depname,depid)
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
 
     return (
@@ -107,6 +122,8 @@ function MonthDashboard() {
                                         <th className="px-4 py-2">Accept</th>
                                         <th className="px-4 py-2">Reject</th>
                                         <th className="px-4 py-2">Nocheck</th>
+                                        <th className="px-4 py-2">PreINV</th>
+
                                         <th className="px-4 py-2">Detail</th>
                                     </tr>
                                 </thead>
@@ -120,13 +137,18 @@ function MonthDashboard() {
                                             <td className="px-4 py-2 text-center">{item.AcceptCount}</td>
                                             <td className="px-4 py-2 text-center">{item.RejectCount}</td>
                                             <td className="px-4 py-2 text-center">{item.NocheckCount}</td>
+                                            <td>
+                                                <button className="hover:bg-blue-300" onClick={() => openModal(item.Name, item.depID)}>
+                                                    <FaPencil className="mr-2" />Register
+                                                </button>
+                                            </td>
                                             <td className="flex items-center justify-center py-2">
                                                 <button className="hover:bg-blue-300" onClick={() => viewdep(item.depID, item.Name)}>
                                                     <FaEye className="mr-2" /> View
                                                 </button>
-                                           
+
                                                 <button className="hover:bg-blue-300">
-                                                    <FaPrint className="mr-2"  /> PreINV
+                                                    <FaPrint className="mr-2" /> PreINV
                                                 </button>
                                             </td>
                                         </tr>
@@ -137,6 +159,27 @@ function MonthDashboard() {
                     )}
                 </div>
             </div>
+
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
+                <div className="flex-col">
+                    <div className="bg-blue-200 text-xl p-4 rounded-2xl">
+                        ลงทะเบียน Pre-Invoice
+                    </div>
+                    <div className="mt-2">
+                        <label>เลขที่ Pre-Invoice</label>
+                        <input
+                        type="text"
+                        className="bg-white border shadow-lg ml-2 border-black"
+                        />
+                    </div>
+                    <div>
+                        <button className="w-11/12 bg-green-400 font-bold"><FaSave size={32} /> บันทึก</button>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }
