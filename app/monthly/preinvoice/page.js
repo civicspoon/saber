@@ -22,10 +22,26 @@ function PageContent() {
     const [groupedFlights, setGroupedFlights] = useState([]);
     const [buttonVisible, setButtonVisible] = useState(true);
     const [preinvdata, setPreinvdata] = useState([]);
+    const [month,setMonth] = useState(null)
+    const [year,setYear] = useState(null)
 
-    const airline = searchParams.get('airline');
-    const month = searchParams.get('month');
-    const year = searchParams.get('year');
+    const invno = searchParams.get('invNo');
+
+
+useEffect(()=>{
+    getinvreocrd()
+},[invno])
+
+const getinvreocrd =  async () =>{
+    const result = await GetData(`${process.env.NEXT_PUBLIC_API_URL}/preinv/get?id=${invno}`);
+    setDepid(result.data.DepartmentID)
+    const issuedDate = new Date(result.data.Issued);
+    setMonth(issuedDate.getMonth())
+    setYear(issuedDate.getFullYear())
+
+    console.log(depid,month,year);
+
+}
 
     useEffect(() => {
         if (depid && month && year) {
@@ -182,7 +198,7 @@ function PageContent() {
                         </div>
                     </div>
                     <div className=" w-8/12 pt-2" style={{ fontSize: '10pt' }}>
-                        <div className="-mt-1">เลขที่ NO. </div>
+                        <div className="">เลขที่ NO. <span className="ml-44">{invno}</span></div>
                         <div className="mt-20">วันที่ออกใบแจ้งหนี้</div>
                         <div className="-mt-2">INVOICE ISSUED ON</div>
 
@@ -201,9 +217,9 @@ function PageContent() {
                 {/* Table */}
                 <div className='w-full mt-3'>
                     <table className='w-full ' style={{ fontSize: '12pt' }}>
-                        <thead >
+                    <thead>
                             <tr>
-                                <th className=' border border-black font-thin' style={{ width: '12%' }}>รหัสสินค้า<br /> Product Name</th>
+                            <th className=' border border-black font-thin' style={{ width: '12%' }}>รหัสสินค้า<br /> Product Name</th>
                                 <th className='border  border-black  font-thin' >รายการสินค้า / บริการ<br /> DESCRIPTION</th>
                                 <th className='border  border-black font-thin' style={{ width: '7%' }}>จำนวน<br /> QUANTITY</th>
                                 <th className='border border-black  font-thin' style={{ width: '5%' }}>หน่วย<br /> UNIT</th>
