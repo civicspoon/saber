@@ -199,8 +199,8 @@ function PageContent() {
                                         Fraction of an hour is one hour
                                     </div>
                                 </td>
-                                <td className='border  border-black  px-2' ></td>
-                                <td className='border border-black  px-2' ></td>
+                                <td className='border border-black px-2' ></td>
+                                <td className='border border-black px-2' ></td>
                                 <td className='border border-black px-2' ></td>
                                 <td className='border border-black text-end items-center' >{formatNumber(datatmp.BeforeVat)}</td>
                             </tr>
