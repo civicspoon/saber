@@ -64,14 +64,21 @@ function PageContent() {
 
     const groupFlightsByNumber = (data) => {
         const groupedFlights = data.reduce((acc, flight) => {
-            if (!acc[flight.FlightNo]) {
-                acc[flight.FlightNo] = [];
+            const flightKey = `${flight.AirlineCode}${flight.FlightNo}`;
+            if (!acc[flightKey]) {
+                acc[flightKey] = new Set();
             }
             const date = new Date(flight.DateVal);
             const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
-            acc[flight.FlightNo].push(formattedDate);
+            acc[flightKey].add(formattedDate);
             return acc;
         }, {});
+    
+        // Convert sets to arrays
+        for (let flightKey in groupedFlights) {
+            groupedFlights[flightKey] = Array.from(groupedFlights[flightKey]);
+        }
+    
         return groupedFlights;
     };
 
@@ -184,7 +191,7 @@ function PageContent() {
                                         1. Security Agent for INAD Passenger and Deportee Escort<br/>
                                         {Object.entries(groupedFlights).map(([flightNo, dates], index) => (
                                             <span key={index}>
-                                                - {datatmp.AirlineCode}{flightNo} on {dates.join(', ')} <br />
+                                                - {flightNo} on {dates.join(', ')} <br />
                                             </span>
                                         ))}
                                         {`(${datatmp.TotalHour} Hours x ${datatmp.InadCost} Baht)`} {/* {Calculate Hour x bath }  */} <br />
