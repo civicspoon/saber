@@ -184,7 +184,7 @@ const getinvreocrd =  async () =>{
                         โทร 0-2504-3560 เลขประจำตัวผู้เสียภาษี TAX ID. 0105562171073
                         <div className='flex' style={{ fontSize: '12pt' }}>
                             <div className='mt-1 w-1/4' style={{ fontSize: '10pt' }}><span >รหัสลูกค้า</span><div className="-mt-2">Customer Code</div></div>
-                            <div className='mt-1 -ml-7' >435201 {datatmp.CustomerCode}</div>
+                            <div className='mt-1 -ml-7' >425314 {datatmp.CustomerCode}</div>
                             <div className='mt-1 ml-5' >TAX ID {'0105561176136 Head Office'}</div>
                         </div>
                         <div className='flex'>
