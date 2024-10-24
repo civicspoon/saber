@@ -4,9 +4,18 @@ import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { GetData, formatNumber } from '@/app/Utils/Datahandling';
 import { DDMMYYY, HHMM, getDayOfWeek, inadCharge, monthtext } from '@/app/Utils/DateTimeConversion';
-import './style.css';
+import '@/app/Components/Print/depsummary/style.css';
 
 function ClientComponent() {
+    const [userdata, setUserdata] = useState(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const userDataFromSession = JSON.parse(sessionStorage.getItem('usdt'));
+            setUserdata(userDataFromSession);
+        }
+    }, []);
+
     const searchParams = useSearchParams();
 
     const airline = searchParams.get('airline');
@@ -20,17 +29,15 @@ function ClientComponent() {
     const [grandtotal, setGrandtotal] = useState(0);
     const [hourtotal, setHourtotal] = useState(0);
     const [buttonVisible, setButtonVisible] = useState(true);
-    const [prepareby, setPrepareby] = useState(null)
-    const [manager, setManager] = useState(null)
 
     useEffect(() => {
-        if (airline && month && year) {
+        if (depid && month && year) {
             const fetchData = async () => {
-                const result = await GetData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/getmonthlyreport/${airline}/${month}/${year}`);
+                const result = await GetData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/depmonthlyreport?depid=${userdata.DepartmentID}&month=${month}&year=${year}`);
                 setData(result);
             };
             fetchData();
-            // console.log('fetch');
+            console.log('fetch');
         }
     }, [airline, month, year]);
 
@@ -42,27 +49,18 @@ function ClientComponent() {
             data.forEach(val => {
                 total += inadCharge(val.time_difference, val.InadRate);
                 let [hours, minutes] = val.time_difference.split(':').map(Number);
-
                 if (minutes > 0) {
                     tmphour += hours + 1;
-                } else {
+                }else{
                     tmphour += hours
                 }
-
-                console.log('==============Total===tmphour===================');
-                console.log(hours, minutes, tmphour);
-
                 setAirport(data[0].Airport);
                 setInadrate(data[0].InadRate);
                 setAirlinename(data[0].Name);
-                setPrepareby(data[0].ApproveBy)
-                setManager(data[0].Manager)
-
-
             });
             setGrandtotal(total.toFixed(2));
             setHourtotal(tmphour);
-            // console.log('le ', data.length);
+            console.log('le ', data.length);
         }
     }, [data]);
 

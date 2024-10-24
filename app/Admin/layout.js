@@ -2,12 +2,11 @@
 import React from 'react';
 import Sidebar from './Components/Sidebar';
 
-
 const Layout = ({ children }) => {
   return (
     <div className="flex h-screen bg-white">
       <Sidebar />
-      <main className="flex-1 h-screen">
+      <main className="flex-1 w-full h-full overflow-auto">
         {children}
       </main>
     </div>

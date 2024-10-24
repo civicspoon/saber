@@ -30,7 +30,7 @@ function Page() {
   };
 
   return (
-    <>
+    <div >
         <div className="font-semibold bg-blue-700 text-2xl p-4 rounded-t-lg">เพิ่มรายการ สายการบิน-เที่ยวบิน</div>
         <div className="flex justify-between  p-2 rounded-b-lg mb-4 bg-slate-700">
 
@@ -73,7 +73,7 @@ function Page() {
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         {isNewFlight ? <NewFlight /> : <NewAirline />}
       </Modal>
-    </>
+    </div>
   );
 }
 

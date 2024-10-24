@@ -38,5 +38,3 @@ next-env.d.ts
 # config files
 .env
 next.config.mjs
-jsconfig.json
-package.json

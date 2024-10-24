@@ -1,15 +1,24 @@
 // ClientComponent.js
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { GetData, formatNumber } from '@/app/Utils/Datahandling';
 import { DDMMYYY, HHMM, getDayOfWeek, inadCharge, monthtext } from '@/app/Utils/DateTimeConversion';
-import './style.css';
+import '@/app/Components/Print/depsummary/style.css';
 
-function ClientComponent() {
+function Page() {
+    const [userdata, setUserdata] = useState(null);
+    const [depid, setDepid] = useState(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const session = JSON.parse(sessionStorage.getItem('usdt'));
+            setDepid(session.DepartmentID);
+        }
+    }, []);
+
     const searchParams = useSearchParams();
 
-    const airline = searchParams.get('airline');
     const month = searchParams.get('month');
     const year = searchParams.get('year');
 
@@ -20,19 +29,19 @@ function ClientComponent() {
     const [grandtotal, setGrandtotal] = useState(0);
     const [hourtotal, setHourtotal] = useState(0);
     const [buttonVisible, setButtonVisible] = useState(true);
-    const [prepareby, setPrepareby] = useState(null)
-    const [manager, setManager] = useState(null)
+    const [prepareby,setPrepareby] = useState(null)
+    const [manager,setManager] = useState(null)
 
     useEffect(() => {
-        if (airline && month && year) {
+        if (depid && month && year) {
             const fetchData = async () => {
-                const result = await GetData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/getmonthlyreport/${airline}/${month}/${year}`);
+                const result = await GetData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/depmonthlyreport?depid=${depid}&month=${month}&year=${year}`);
                 setData(result);
             };
             fetchData();
-            // console.log('fetch');
+            console.log('fetch');
         }
-    }, [airline, month, year]);
+    }, [depid, month, year]);
 
     useEffect(() => {
         if (data) {
@@ -42,27 +51,21 @@ function ClientComponent() {
             data.forEach(val => {
                 total += inadCharge(val.time_difference, val.InadRate);
                 let [hours, minutes] = val.time_difference.split(':').map(Number);
-
                 if (minutes > 0) {
                     tmphour += hours + 1;
-                } else {
+                }else{
                     tmphour += hours
                 }
-
-                console.log('==============Total===tmphour===================');
-                console.log(hours, minutes, tmphour);
-
                 setAirport(data[0].Airport);
                 setInadrate(data[0].InadRate);
                 setAirlinename(data[0].Name);
                 setPrepareby(data[0].ApproveBy)
                 setManager(data[0].Manager)
 
-
             });
             setGrandtotal(total.toFixed(2));
             setHourtotal(tmphour);
-            // console.log('le ', data.length);
+            console.log('le ', data.length);
         }
     }, [data]);
 
@@ -93,7 +96,7 @@ function ClientComponent() {
             )}
             <div className='flex-1 report items-center justify-center' style={{ fontFamily: 'Sarabun, sans-serif' }}>
                 <div className='w-full text-center' style={{ fontSize: '10pt', fontWeight: 'bold' }}>
-                    Monthly Summary Report for INAD of {airlinename} at {airport} <br /> of {`${monthtext(month)} ${year}`}
+                    Monthly Summary Report for INAD of AOTGA at {airport} <br /> of {`${monthtext(month)} ${year}`}
                 </div>
 
                 <div className='flex items-center text-center'>
@@ -173,4 +176,10 @@ function ClientComponent() {
     );
 }
 
-export default ClientComponent;
+export default function PageWrapper() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <Page />
+        </Suspense>
+    );
+}

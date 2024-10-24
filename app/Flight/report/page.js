@@ -46,6 +46,9 @@ function Page() {
                         text: "ไม่พบข้อมูล",
                         icon: "info"
                     });
+                    return 0; // Return 0 if no data found
+                } else {
+                    return 1; // Return 1 if data found
                 }
             } else {
                 const data = { airlineid, month, year };
@@ -57,12 +60,17 @@ function Page() {
                         text: "ไม่พบข้อมูล",
                         icon: "info"
                     });
+                    return 0; // Return 0 if no data found
+                } else {
+                    return 1; // Return 1 if data found
                 }
             }
         } catch (error) {
             console.error("Error fetching data:", error);
+            return 0; // Return 0 in case of error
         }
     };
+
 
     const handleAirlineSelect = (selectedAirline) => {
         setAirlineID(selectedAirline);
@@ -112,39 +120,100 @@ function Page() {
         }
     };
 
+    const viewdep = async () => {
+        if (!month) {
+            Swal.fire({
+                icon: "error",
+                text: "กรุณาเลือกเดือน",
+                title: "ตารางสรุปเกิดข้อผิดพลาด"
+            });
+            return;
+        }
+
+        const searchResult = await handleSearch();
+
+        if (searchResult === 0) {
+            Swal.fire({
+                icon: "error",
+                text: "ไม่มีข้อมูล",
+                title: "เกิดข้อผิดพลาด"
+            });
+            return;
+        }
+
+        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/depsummary?month=${month}&year=${year}`;
+        window.open(url, '_blank');
+    };
+
+
+    const depmonthly = async () => {
+        if (!month) {
+            Swal.fire({
+                icon: "error",
+                text: "กรุณาเลือกเดือน",
+                title: "ตารางสรุปเกิดข้อผิดพลาด"
+            });
+            return;
+        }
+
+        const searchResult = await handleSearch();
+
+        if (searchResult === 0) {
+            Swal.fire({
+                icon: "error",
+                text: "ไม่มีข้อมูล",
+                title: "เกิดข้อผิดพลาด"
+            });
+            return;
+        }
+
+        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/monthly?month=${month}&year=${year}`;
+        window.open(url, '_blank');
+    }
+
     return (
-        <div className="flex-1 h-screen">
+        <div className="flex-1 overflow-auto h-screen">
             <div className="card-header">รายการ AOTGA INAD</div>
-            <div className="flex justify-center items-center">
-                <div>
-                    <AirlineSelect onAirlineSelect={handleAirlineSelect} />
+
+            <div className="flex">
+                <div className="flex w-1/2 justify-center items-center">
+                    <span className="mt-5 mr-2">  รายงานแยกสายการบิน</span>
+
+                    <div>
+                        <AirlineSelect onAirlineSelect={handleAirlineSelect} />
+                    </div>
+                    <div>
+                        <select onChange={(e) => setMonth(e.target.value)} className="mt-7">
+                            <option value="">เดือน</option>
+                            {months.map((month) => (
+                                <option key={month.value} value={month.value}>
+                                    {month.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <input
+                            type="number"
+                            className="mt-7 w-20"
+                            min={2024}
+                            value={year}
+                            onChange={(e) => setYear(parseInt(e.target.value))}
+                        />
+                    </div>
+                    <div>
+                        <button onClick={handleSearch} className="mt-7 bg-zinc-200 text-black">
+                            <FaSearch /> รายการ
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <select onChange={(e) => setMonth(e.target.value)} className="mt-7">
-                        <option value="">เดือน</option>
-                        {months.map((month) => (
-                            <option key={month.value} value={month.value}>
-                                {month.label}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <input
-                        type="number"
-                        className="mt-7"
-                        min={2024}
-                        value={year}
-                        onChange={(e) => setYear(parseInt(e.target.value))}
-                    />
-                </div>
-                <div>
-                    <button onClick={handleSearch} className="mt-7">
-                        <FaSearch /> รายการ
-                    </button>
+                <div className="flex w-1/2 items-center">
+                    <span className="mt-5 mr-2">  รายงานสรุปประจำเดือน(ทุกสายการบิน)</span>
+
+                    <button onClick={viewdep} className="mt-7 bg-zinc-200 text-black">ตาราง Summary</button>
+                    <button onClick={depmonthly} className="mt-7 bg-zinc-200 text-black">รายงานสรุป</button>
                 </div>
             </div>
-
             <div className="text-center">* สามารถแสดงรายการทั้งหมดในเดือน-ปีที่ต้องการได้โดยไม่ต้องเลือกสายการบิน</div>
             <div className="flex">
                 <button onClick={() => viewReport('Summary')} className="bg-yellow-300 text-black">

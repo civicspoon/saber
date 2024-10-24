@@ -6,16 +6,10 @@ import { DDMMYYY, monthtext } from "@/app/Utils/DateTimeConversion";
 import { thbtxt } from "@/app/Utils/DateTimeConversion";
 import { formatNumber, GetData } from "@/app/Utils/Datahandling";
 import { useSearchParams } from "next/navigation";
-import Style from "./Style.css";
+import Style from "@/app/Components/Print/monthly/Style.css";
 
 function PageContent() {
-    const searchParams = useSearchParams();
-    const [buttonVisible, setButtonVisible] = useState(true);
-
-    const airline = searchParams.get('airline');
-    const month = searchParams.get('month');
-    const year = searchParams.get('year');
-
+    const [depid, setDepid] = useState(null);
     const [data, setData] = useState(null);
     const [totalcost, setTotalcost] = useState(0);
     const [airlinecode, setAirlinecode] = useState('');
@@ -23,16 +17,29 @@ function PageContent() {
     const [customerCode, setCustomerCode] = useState('');
     const [totalHour, setTotalHour] = useState(0);
     const [groupedFlights, setGroupedFlights] = useState([]);
+    const [buttonVisible, setButtonVisible] = useState(true);
 
     useEffect(() => {
-        if (airline && month && year) {
+        if (typeof window !== 'undefined') {
+            const session = JSON.parse(sessionStorage.getItem('usdt'));
+            setDepid(session.DepartmentID);
+        }
+    }, []);
+
+    const searchParams = useSearchParams();
+    const airline = searchParams.get('airline');
+    const month = searchParams.get('month');
+    const year = searchParams.get('year');
+
+    useEffect(() => {
+        if (depid && month && year) {
             const fetchData = async () => {
-                const result = await GetData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/getmonthlyreport/${airline}/${month}/${year}`);
+                const result = await GetData(`${process.env.NEXT_PUBLIC_API_URL}/inadhandling/depmonthlyreport?depid=${depid}&month=${month}&year=${year}`);
                 setData(result);
             };
             fetchData();
         }
-    }, [airline, month, year]);
+    }, [depid, month, year]);
 
     useEffect(() => {
         if (data) {
@@ -82,22 +89,6 @@ function PageContent() {
         return groupedFlights;
     };
 
-    if (!airline || !month || !year) {
-        return <div>Loading...</div>;
-    }
-
-    const datatmp = {
-        "AirlineCode": airlinecode,
-        "Airport": airport,
-        "Monthly": `${monthtext(month)} ${year}`,
-        "InadCost": 168.22,
-        "TotalHour": totalHour,
-        "BeforeVat": totalcost,
-        "CustomerCode": customerCode
-    };
-
-
-
     const handlePrint = () => {
         setButtonVisible(false);
         setTimeout(() => {
@@ -114,9 +105,23 @@ function PageContent() {
         };
     }, []);
 
+    if (!depid || !month || !year) {
+        return <div>Loading...</div>;
+    }
+
+    const datatmp = {
+        "AirlineCode": airlinecode,
+        "Airport": airport,
+        "Monthly": `${monthtext(month)} ${year}`,
+        "InadCost": 168.22,
+        "TotalHour": totalHour,
+        "BeforeVat": totalcost,
+        "CustomerCode": customerCode
+    };
+
     return (
         <>
-         {buttonVisible && (
+            {buttonVisible && (
                 <div className='text-center my-2'>
                     <button onClick={handlePrint} className='px-4 py-2 bg-blue-500 text-white rounded'>
                         Print Report
@@ -124,19 +129,21 @@ function PageContent() {
                 </div>
             )}
             <div className="report" style={{ width: '210mm', height: '297mm', fontFamily: 'THSarabun, sans-serif', fontSize: '16pt' }} className="flex-1 bg-white text-black p-5">
-                <div className='flex'>
-                    <Image
-                        src={aot}
-                        style={{ width: 'auto', height: '20mm' }}
-                        className='mr-5'
-                        alt=''
-                    />
-                    <div className='flex-row w-full mt-2'>
-                        <div >บริษัท รักษาความปลอดภัย ท่าอากาศยานไทย จำกัด</div>
-                        <div  >AOT Aviation Security Company Limited</div>
-                    </div>
-                    <div className='w-full flex justify-end text-end mt-2'>
-                        Inadmissible Passenger Report (INAD)
+                <div className='print-header'>
+                    <div className='flex'>
+                        <Image
+                            src={aot}
+                            style={{ width: 'auto', height: '20mm' }}
+                            className='mr-5'
+                            alt=''
+                        />
+                        <div className='flex-row w-full mt-2'>
+                            <div>บริษัท รักษาความปลอดภัย ท่าอากาศยานไทย จำกัด</div>
+                            <div>AOT Aviation Security Company Limited</div>
+                        </div>
+                        <div className='w-full flex justify-end text-end mt-2'>
+                            Inadmissible Passenger Report (INAD)
+                        </div>
                     </div>
                 </div>
 
@@ -184,14 +191,14 @@ function PageContent() {
                             <tr className='border' style={{ height: '250pt', verticalAlign: 'top' }}>
                                 <td className='border text-center  border-black ' ><div>{datatmp.CustomerCode}</div></td>
                                 <td className='border  border-black px-2' >
-                                    Security Service Charge for INAD Passenger and Deportee Escort {datatmp.AirlineCode} {/* Flight  */}<br />
+                                    Security Service Charge for INAD Passenger and Deportee Escort<br />
                                     at {datatmp.Airport} {/* Airport */}<br />
                                     for {datatmp.Monthly} {/* Monthly */} <br /><br />
                                     <div className='pl-2 w-full'>
                                         1. Security Agent for INAD Passenger and Deportee Escort<br/>
                                         {Object.entries(groupedFlights).map(([flightNo, dates], index) => (
                                             <span key={index}>
-                                                - {flightNo} on {dates.join(', ')} <br />
+                                                -{flightNo} on {dates.join(', ')} <br />
                                             </span>
                                         ))}
                                         {`(${datatmp.TotalHour} Hours x ${datatmp.InadCost} Baht)`} {/* {Calculate Hour x bath }  */} <br />
@@ -199,8 +206,8 @@ function PageContent() {
                                         Fraction of an hour is one hour
                                     </div>
                                 </td>
-                                <td className='border border-black px-2' ></td>
-                                <td className='border border-black px-2' ></td>
+                                <td className='border  border-black  px-2' ></td>
+                                <td className='border border-black  px-2' ></td>
                                 <td className='border border-black px-2' ></td>
                                 <td className='border border-black text-end items-center' >{formatNumber(datatmp.BeforeVat)}</td>
                             </tr>
@@ -230,7 +237,6 @@ function PageContent() {
                     </div>
                 </div>
             </div>
-           
         </>
     );
 }

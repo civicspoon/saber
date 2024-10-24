@@ -19,8 +19,8 @@ export function monthtext(m){
 export function HHMM(dateval) {
     const date = new Date(dateval)
     // Get hours and minutes from the date
-    const hours = String(date.getHours()).padStart(2, '0'); // Ensure two digits
-    const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure two digits
+    const hours = String(date.getUTCHours()).padStart(2, '0'); // Ensure two digits
+    const minutes = String(date.getUTCMinutes()).padStart(2, '0'); // Ensure two digits
 
     // Concatenate hours and minutes with a colon in between
     return `${hours}:${minutes}`;
@@ -42,15 +42,15 @@ export function inadCharge(time,rate){
      let cost = 0;
     let [hours, minutes, seconds] = time.split(':').map(Number);
     
-    console.log("h ", hours);
-    console.log("m ", minutes);
-    console.log("cost ", cost);
+    // console.log("h ", hours);
+    // console.log("m ", minutes);
+    // console.log("cost ", cost);
     if (minutes >= 1) {
         hours += 1; // Add 1 to cost if minutes are greater than or equal to 1
     }
     cost += hours * rate; // Add cost based on hours
-    console.log("cost+ ", cost);
-    console.log('cost ', cost);
+    // console.log("cost+ ", cost);
+    // console.log('cost ', cost);
     return (cost);
 
 }
