@@ -104,16 +104,16 @@ function Page() {
                         <thead className='bg-gray-200'>
                             <tr>
                                 <th className='border border-black px-2' style={{ width: '2%' }}>NO</th>
-                                <th className='border border-black px-2' style={{ width: '8%' }}>DATE</th>
+                                <th className='border border-black px-2' style={{ width: '13%' }}>DATE</th>
                                 <th className='border border-black px-2' style={{ width: '4%' }}>DAY</th>
                                 <th className='border border-black px-2' style={{ width: '5%' }}>FLT. NO</th>
                                 <th className='border border-black px-2' style={{ width: '3%' }}>Routing</th>
-                                <th className='border border-black px-2' style={{ width: '20%' }}>Passenger Name</th>
+                                <th className='border border-black px-2' style={{ width: '18%' }}>Passenger Name</th>
                                 <th className='border border-black px-2' style={{ width: '4%' }}>Time IN</th>
                                 <th className='border border-black px-2' style={{ width: '4%', }}>Time OUT</th>
                                 <th className='border border-black px-2' style={{ width: '4%' }}>Total Hour</th>
                                 <th className='border border-black px-2' style={{ width: '5%' }}>Number of PAX.</th>
-                                <th className='border border-black px-2' style={{ width: "15%",fontSize: '7pt' }}>Rate Charge for INAD<br />Baht {inadrate} /1-INAD/1-Hour.</th>
+                                <th className='border border-black px-2' style={{ width: "auto",fontSize: '7pt' }}>Rate Charge for INAD<br />Baht {inadrate} /1-INAD/1-Hour.</th>
                                 <th className='border border-black px-2'>REMARK</th>
                             </tr>
                         </thead>
@@ -135,7 +135,7 @@ function Page() {
                                 </tr>
                             ))}
                         </tbody>
-                        <tfoot>
+                        <tbody>
                             <tr className='font-bold'>
                                 <td></td>
                                 <td>Total</td>
@@ -149,10 +149,10 @@ function Page() {
                                 <td className='border-b-2 border-black'>{data && data.length}</td>
                                 <td className='border-b-2 border-black text-end'>{formatNumber(parseFloat(grandtotal))}</td>
                             </tr>
-                        </tfoot>
+                        </tbody>
                     </table>
                 </div>
-
+              
                 <div className='flex w-full'>
                     <div className='w-2/5'></div>
                     <div className='w-3/5 mt-6  flex flex-col' style={{ fontSize: '8pt' }}>
