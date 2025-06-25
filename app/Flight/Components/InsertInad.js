@@ -13,7 +13,7 @@ function InsertInad() {
         'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
         'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
     ];
-const [handleByAirlines, setHandleByAirlines] = useState(false);
+    const [handleByAirlines, setHandleByAirlines] = useState(false);
 
     const [fullstartdate, setFullstartdate] = useState('');
     const [fullenddate, setFullenddate] = useState('');
@@ -43,12 +43,33 @@ const [handleByAirlines, setHandleByAirlines] = useState(false);
     });
 
     useEffect(() => {
-        setRemarkval(`OUTBOUND ${outbound} ${outboundflight} ON ${formatDate(outbounddate)}`)
-    }, [outbound, outboundflight, outbounddate])
+        let remark = `OUTBOUND ${outbound} ${outboundflight} ON ${formatDate(outbounddate)}`;
+        if (handleByAirlines) {
+            remark += ' - HANDLE BY AIRLINES STAFF';
+        }
+        setRemarkval(remark);
+    }, [outbound, outboundflight, outbounddate, handleByAirlines]);
 
     useEffect(() => {
         setRemarkval('PASSENGER IS ALLOWED');
     }, [checkboxdisable])
+
+// -----------------------
+useEffect(() => {
+    if (checkboxdisable) {
+        setRemarkval('PASSENGER IS ALLOWED');
+    } else {
+        let remark = `OUTBOUND ${outbound} ${outboundflight} ON ${formatDate(outbounddate)}`;
+        if (handleByAirlines) {
+            remark += ' - HANDLE BY AIRLINES STAFF';
+        }
+        setRemarkval(remark);
+    }
+}, [checkboxdisable, outbound, outboundflight, outbounddate, handleByAirlines]);
+
+
+// --------------------------------------
+
 
     const handleCheckbox = () => {
         setDisableRemark(!disableRemark);
@@ -90,13 +111,13 @@ const [handleByAirlines, setHandleByAirlines] = useState(false);
 
     useEffect(() => {
         // Check if both start and end dates are provided
-     
-            // If both dates are present and start date is less than or equal to end date
-            setTimeok(true);
-        
-        
-    }, [ fullenddate]);
-    
+
+        // If both dates are present and start date is less than or equal to end date
+        setTimeok(true);
+
+
+    }, [fullenddate]);
+
 
     const handleStartDateTimeChange = (newDateTime) => {
         setStartDateTime(newDateTime);
@@ -206,6 +227,7 @@ const [handleByAirlines, setHandleByAirlines] = useState(false);
         });
     };
 
+
     return (
         <div>
             <form id="inadform" className="flex flex-wrap items-start justify-center text-center md:text-left" onSubmit={handleSubmit}>
@@ -278,14 +300,25 @@ const [handleByAirlines, setHandleByAirlines] = useState(false);
                 {selectedFlight && (
                     <>
                         <div className="flex flex-wrap ml-2">
-                            <div className="flex items-center">
-                                <input
-                                    onChange={handleCheckbox}
-                                    className="w-7 h-7 rounded focus:ring-2 focus:ring-blue-600"
-                                    type="checkbox"
-                                    checked={checkboxdisable}
-                                />
-                                <label className="ml-2">ผู้โดยสารได้รับอนุญาตเข้าประเทศ</label>
+                            <div className="flex flex-col sm:flex-row sm:items-center">
+                                <div className="flex items-center mr-4">
+                                    <input
+                                        onChange={handleCheckbox}
+                                        className="w-7 h-7 rounded focus:ring-2 focus:ring-blue-600"
+                                        type="checkbox"
+                                        checked={checkboxdisable}
+                                    />
+                                    <label className="ml-2">ผู้โดยสารได้รับอนุญาตเข้าประเทศ</label>
+                                </div>
+                                <div className="flex items-center">
+                                    <input
+                                        onChange={(e) => setHandleByAirlines(e.target.checked)}
+                                        className="w-7 h-7 rounded focus:ring-2 focus:ring-blue-600"
+                                        type="checkbox"
+                                        checked={handleByAirlines}
+                                    />
+                                    <label className="ml-2">Handle By Airlines Staff</label>
+                                </div>
                             </div>
                             <div className="flex flex-wrap items-center justify-center text-center md:text-left" hidden={checkboxdisable}>
                                 <div className="flex flex-col w-full sm:w-auto sm:flex-row items-center sm:ml-2 mt-2">
