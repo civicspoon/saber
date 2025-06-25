@@ -273,16 +273,9 @@ function Page() {
                 )}
             </div>
 
-<<<<<<< HEAD
-<Modal>
-   
-</Modal>
-
-=======
             <Modal>
                 {/* <EditRecord recordID={recordID} /> */}
             </Modal>
->>>>>>> develop
         </div>
     );
 }

@@ -31,13 +31,23 @@ function PageContent() {
 useEffect(()=>{
     getinvreocrd()
 },[invno])
+useEffect(() => {
+    console.log(depid, month, year);
+}, [depid, month, year]);
 
 const getinvreocrd =  async () =>{
     const result = await GetData(`${process.env.NEXT_PUBLIC_API_URL}/preinv/get?id=${invno}`);
+
+    console.log(result);
+    
     setDepid(result.data.DepartmentID)
     const issuedDate = new Date(result.data.Issued);
-    setMonth(issuedDate.getMonth())
-    setYear(issuedDate.getFullYear())
+    issuedDate.setHours(issuedDate.getHours() - 7);
+    
+     setMonth(issuedDate.getMonth()+1)
+     setYear(issuedDate.getFullYear())
+   
+console.log('get inv');
 
     console.log(depid,month,year);
 
@@ -135,6 +145,11 @@ const getinvreocrd =  async () =>{
         "CustomerCode": customerCode
     };
 
+
+
+
+    
+
     return (
         <>
             {buttonVisible && (
@@ -217,7 +232,7 @@ const getinvreocrd =  async () =>{
                 {/* Table */}
                 <div className='w-full mt-3'>
                     <table className='w-full ' style={{ fontSize: '12pt' }}>
-                    <thead>
+          
                             <tr>
                             <th className=' border border-black font-thin' style={{ width: '12%' }}>รหัสสินค้า<br /> Product Name</th>
                                 <th className='border  border-black  font-thin' >รายการสินค้า / บริการ<br /> DESCRIPTION</th>
@@ -226,7 +241,7 @@ const getinvreocrd =  async () =>{
                                 <th className='border  border-black font-thin' style={{ width: '10%' }}>ราคาต่อหน่วย<br /> UNIT PRICE</th>
                                 <th className='border  border-black font-thin' style={{ width: '15%' }}>จำนวนเงิน<br /> AMOUNT</th>
                             </tr>
-                        </thead>
+                       
                         <tbody>
                             <tr className='border' style={{ height: '250pt', verticalAlign: 'top' }}>
                                 <td className='border text-center  border-black ' ><div>AOTGA-Security Service 435201{datatmp.CustomerCode}</div></td>
@@ -252,7 +267,7 @@ const getinvreocrd =  async () =>{
                                 <td className='border border-black px-2' ></td>
                                 <td className='border border-black text-end items-center' >{formatNumber(datatmp.BeforeVat)}</td>
                             </tr>
-                            <tr >
+                            <tr>
                                 <td colSpan={2} rowSpan={3} className=" align-text-top" style={{ fontSize: '11pt' }}>
                                     <div>โปรดชำระด้วยเช็คขีดคร่อมในนาม <span className="font-semibold" > บริษัท รักษาความปลอดภัย ท่าอากาศยานไทย จำกัด</span></div>
                                     <div>Please make payment by cross cheque pay to  <span className="font-semibold" > AOT Aviation Security Company Limited</span></div>
@@ -276,7 +291,10 @@ const getinvreocrd =  async () =>{
                             </tr>
                         </tbody>
                     </table>
-                    <div className='flex w-full' style={{ fontSize: '12pt' }}>
+
+                    <div className="  flex w-full text-[12pt] justify-center -mt-10">
+  {/* Content Here */}
+
                         <div className='flex flex-col  w-3/5'>
                             <div className='flex w-full  border border-black  p-1 '>
                                 <div className='mr-1 w-10'>บาท <br /> Baht</div>
@@ -286,7 +304,7 @@ const getinvreocrd =  async () =>{
                                 <div style={{ fontSize: '8pt' }}>
                                     รับสินค้า / บริการ ตามรายการข้างต้นนี้ไว้โดยถูกต้องครบถ้วนแล้ว
                                 </div>
-                                <div className="mt-5 flex text-center">
+                                <div className="mt-1 flex text-center">
                                     <div className="w-1/2">
                                         <div>___________________________________</div>
                                         <div style={{ fontSize: '10pt' }}>
@@ -310,7 +328,7 @@ const getinvreocrd =  async () =>{
 
                             </div>
                         </div>
-                        <div className="w-2/5 pt-16 text-center items-center text-black justify-center">
+                        <div className="w-2/5 mt-5 pt-10 text-center items-center text-black justify-center">
                             <div>___________________________________</div>
                             <div style={{ fontSize: '10pt' }}>
                                 ผู้มีอำนาจลงนาม Authorized Signature

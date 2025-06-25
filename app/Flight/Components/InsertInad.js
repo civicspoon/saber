@@ -13,13 +13,14 @@ function InsertInad() {
         'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน',
         'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
     ];
+const [handleByAirlines, setHandleByAirlines] = useState(false);
 
     const [fullstartdate, setFullstartdate] = useState('');
     const [fullenddate, setFullenddate] = useState('');
     const [userData, setUserData] = useState();
     const [selectedFlight, setSelectedFlight] = useState("");
     const [selectedAirline, setSelectedAirline] = useState("");
-    const [timeok, setTimeok] = useState();
+    const [timeok, setTimeok] = useState(false);
     const [title, setTitle] = useState('');
     const [checkboxdisable, setCheckboxdisable] = useState(false);
     const [remarkval, setRemarkval] = useState('');
@@ -88,17 +89,14 @@ function InsertInad() {
     }, [endDateTime, months]);
 
     useEffect(() => {
-        if (fullstartdate && fullenddate && fullstartdate > fullenddate) {
-            Swal.fire({
-                icon: "error",
-                title: "ERROR",
-                text: "เวลาเริ่มเท่ากับหรือน้อยกว่าสิ้นสุด"
-            });
-            setTimeok(false);
-        } else if (fullstartdate && fullenddate) {
+        // Check if both start and end dates are provided
+     
+            // If both dates are present and start date is less than or equal to end date
             setTimeok(true);
-        }
-    }, [fullenddate, fullstartdate]);
+        
+        
+    }, [ fullenddate]);
+    
 
     const handleStartDateTimeChange = (newDateTime) => {
         setStartDateTime(newDateTime);

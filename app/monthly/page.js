@@ -128,8 +128,9 @@ function PageContent() {
                     </button>
                 </div>
             )}
-            <div className="report" style={{ width: '210mm', height: '297mm', fontFamily: 'THSarabun, sans-serif', fontSize: '16pt' }} className="flex-1 bg-white text-black p-5">
-                <div className='print-header'>
+<div
+  className="report flex-1 bg-white text-black p-5 w-[210mm] h-[297mm] font-sarabun text-[16pt]"
+>                <div className='print-header'>
                     <div className='flex'>
                         <Image
                             src={aot}

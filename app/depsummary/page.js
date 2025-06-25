@@ -163,7 +163,7 @@ function Page() {
 
 
                         <div className='text-left mt-5  ml-11 '>
-                            Verified by _______________________(Wikornthip Sinchai) ______________________(Kachean Kittipreechasak)
+                            Verified by _______________________(Aritsara  Bumrungthai) ______________________(Kachean Kittipreechasak)
                         </div>
 
                     </div>

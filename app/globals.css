@@ -42,3 +42,9 @@ button{
 .cardheader {
   @apply flex  w-full -mt-4  mb-6 p-2 text-lg text-white border-b  rounded-t-lg
 }
+@layer utilities {
+  .print-page-break {
+      page-break-before: always;
+      break-before: page;
+  }
+}
